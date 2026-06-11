@@ -306,4 +306,8 @@ Public Class EnableManagerActivity
         Button6.Enabled = False
         Button7.Enabled = False
     End Sub
+
+    Private Sub ButtonCheckBalance_Click(sender As Object, e As EventArgs) Handles ButtonCheckBalance.Click
+        VIPCheckBalance.ShowDialog()
+    End Sub
 End Class

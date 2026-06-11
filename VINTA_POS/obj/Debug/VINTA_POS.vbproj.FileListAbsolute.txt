@@ -2315,3 +2315,4 @@ C:\Users\Manuel\POS1\POS1\VINTA_POS\obj\Debug\VINTA_POS.vbproj.CopyComplete
 C:\Users\Manuel\POS1\POS1\VINTA_POS\obj\Debug\METTA_CITY.exe
 C:\Users\Manuel\POS1\POS1\VINTA_POS\obj\Debug\METTA_CITY.xml
 C:\Users\Manuel\POS1\POS1\VINTA_POS\obj\Debug\METTA_CITY.pdb
+C:\Users\Ken\Code\ojt\first\2. Source Code\MettaCity Lts_31\VINTA_POS\obj\Debug\WindowsApplication1.VIPCheckBalance.resources

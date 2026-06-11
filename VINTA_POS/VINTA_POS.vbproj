@@ -452,6 +452,12 @@
     <Compile Include="testseat.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="VIPCheckBalance.Designer.vb">
+      <DependentUpon>VIPCheckBalance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VIPCheckBalance.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="void_tblDataSet.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -578,6 +584,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="testseat.resx">
       <DependentUpon>testseat.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIPCheckBalance.resx">
+      <DependentUpon>VIPCheckBalance.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="voidtransaction.resx">
       <DependentUpon>voidtransaction.vb</DependentUpon>

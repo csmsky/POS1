@@ -39,10 +39,14 @@ Partial Class EnableManagerActivity
         Me.Button6 = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Button7 = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.ButtonCardReload = New System.Windows.Forms.Button()
+        Me.ButtonCheckBalance = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
@@ -209,11 +213,44 @@ Partial Class EnableManagerActivity
         Me.Button7.Text = "Open Cash Drawer"
         Me.Button7.UseVisualStyleBackColor = True
         '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.ButtonCheckBalance)
+        Me.GroupBox5.Controls.Add(Me.ButtonCardReload)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold)
+        Me.GroupBox5.Location = New System.Drawing.Point(378, 460)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(347, 158)
+        Me.GroupBox5.TabIndex = 9
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "VIP Card"
+        '
+        'ButtonCardReload
+        '
+        Me.ButtonCardReload.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCardReload.Location = New System.Drawing.Point(38, 47)
+        Me.ButtonCardReload.Name = "ButtonCardReload"
+        Me.ButtonCardReload.Size = New System.Drawing.Size(135, 90)
+        Me.ButtonCardReload.TabIndex = 0
+        Me.ButtonCardReload.Text = "Card Reload"
+        Me.ButtonCardReload.UseVisualStyleBackColor = True
+        '
+        'ButtonCheckBalance
+        '
+        Me.ButtonCheckBalance.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCheckBalance.Location = New System.Drawing.Point(179, 47)
+        Me.ButtonCheckBalance.Name = "ButtonCheckBalance"
+        Me.ButtonCheckBalance.Size = New System.Drawing.Size(135, 90)
+        Me.ButtonCheckBalance.TabIndex = 10
+        Me.ButtonCheckBalance.Text = "Check Balance"
+        Me.ButtonCheckBalance.UseVisualStyleBackColor = True
+        '
         'EnableManagerActivity
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(747, 477)
+        Me.ClientSize = New System.Drawing.Size(747, 632)
+        Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
@@ -230,6 +267,7 @@ Partial Class EnableManagerActivity
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -251,4 +289,7 @@ Partial Class EnableManagerActivity
     Friend WithEvents Button6 As Button
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Button7 As Button
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents ButtonCheckBalance As Button
+    Friend WithEvents ButtonCardReload As Button
 End Class
