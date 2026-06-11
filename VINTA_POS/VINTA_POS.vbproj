@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E55D7511-E639-4B3C-81D1-DD9F450C3EA4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>WindowsApplication1.My.MyApplication</StartupObject>
+    <RootNamespace>WindowsApplication1</RootNamespace>
+    <AssemblyName>METTA_CITY</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <PublishUrl>D:\STRIDE Project\VINTA Project\1. Metta City\14. Publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>VINTA</ProductName>
+    <PublisherName>VINTA</PublisherName>
+    <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>METTA_CITY.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>NoneWithAutoReset.NoneWithAutoReset.NoneWithAutoReset.None</AssemblyVersionSettings>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>METTA_CITY.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Text</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>metta.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>356479F799775B45BE734ECF60A9BBAD4E869D7E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>VINTA_POS_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BusinessRefinery.Barcode.Win">
+      <HintPath>..\..\..\..\..\Desktop\Backup Files\BusinessRefinery.Barcode.DotNET.Ultimate.Evaluation\BusinessRefinery.Barcode.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="DPCtlUruNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DPCtlUruNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DPCtlXUru, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DPCtlXUru.dll</HintPath>
+    </Reference>
+    <Reference Include="DPUruNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DPUruNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DPXUru, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DPXUru.dll</HintPath>
+    </Reference>
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="MessagingToolkit.Barcode">
+      <HintPath>..\..\..\..\..\Downloads\Barcode-DLL\MessagingToolkit.Barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="MySql.Data.MySqlClient" />
+    <Import Include="MySql.Data.MySqlClient.Authentication" />
+    <Import Include="MySql.Data.MySqlClient.Memcached" />
+    <Import Include="MySql.Data.MySqlClient.Properties" />
+    <Import Include="MySql.Data.MySqlClient.Replication" />
+    <Import Include="MySql.Data.Types" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="accumulated_amount_tblDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>accumulated_amount_tblDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ApprovedCode.Designer.vb">
+      <DependentUpon>ApprovedCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ApprovedCode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="audit_trail_tblDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>audit_trail_tblDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="backendreport.Designer.vb">
+      <DependentUpon>backendreport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="backendreport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baggage.Designer.vb">
+      <DependentUpon>baggage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="baggage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CardDetails.Designer.vb">
+      <DependentUpon>CardDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CardDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cashierreport.Designer.vb">
+      <DependentUpon>cashierreport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="cashierreport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Classes\HikOpenApiClient.vb" />
+    <Compile Include="Classes\SaleInvoiceCounter.vb" />
+    <Compile Include="Company_Details.vb" />
+    <Compile Include="eJournalCustomerData.vb" />
+    <Compile Include="EJournalWriter.vb" />
+    <Compile Include="EnableManagerActivity.Designer.vb">
+      <DependentUpon>EnableManagerActivity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EnableManagerActivity.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FingerprintManagerAuth.vb" />
+    <Compile Include="Form2.Designer.vb">
+      <DependentUpon>Form2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputCustomerDetails.Designer.vb">
+      <DependentUpon>InputCustomerDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="InputCustomerDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntroductoryForm.Designer.vb">
+      <DependentUpon>IntroductoryForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="IntroductoryForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListOfReport.Designer.vb">
+      <DependentUpon>ListOfReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainfform.Designer.vb">
+      <DependentUpon>mainfform.vb</DependentUpon>
+    </Compile>
+    <Compile Include="mainfform.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyTextFile.vb" />
+    <Compile Include="OReJournal_receipt.vb" />
+    <Compile Include="Classes\Apdu.vb" />
+    <Compile Include="Classes\AppConfigReader.vb" />
+    <Compile Include="Classes\CardException.vb" />
+    <Compile Include="Classes\CardPolling.vb" />
+    <Compile Include="Classes\ConfigClass.vb" />
+    <Compile Include="Classes\Helper.vb" />
+    <Compile Include="Classes\MifareClassic.vb" />
+    <Compile Include="Classes\PscsException.vb" />
+    <Compile Include="Classes\PscsProvider.vb" />
+    <Compile Include="Classes\PscsReader.vb" />
+    <Compile Include="destinationDEMO.Designer.vb">
+      <DependentUpon>destinationDEMO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="destinationDEMO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="destination.Designer.vb">
+      <DependentUpon>destination.vb</DependentUpon>
+    </Compile>
+    <Compile Include="destination.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ejournal_tblDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ejournal_tblDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="introductory.Designer.vb">
+      <DependentUpon>introductory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="introductory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainformDEMO.Designer.vb">
+      <DependentUpon>mainformDEMO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="mainformDEMO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainform.Designer.vb">
+      <DependentUpon>mainform.vb</DependentUpon>
+    </Compile>
+    <Compile Include="mainform.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.Designer.vb">
+      <DependentUpon>login.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainformTM.Designer.vb">
+      <DependentUpon>mainformTM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="mainformTM.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="management.Designer.vb">
+      <DependentUpon>management.vb</DependentUpon>
+    </Compile>
+    <Compile Include="management.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="originDEMO.Designer.vb">
+      <DependentUpon>originDEMO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="originDEMO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="origin.Designer.vb">
+      <DependentUpon>origin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="origin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="or_tblDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>or_tblDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="or_tblDataSet.vb">
+      <DependentUpon>or_tblDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentMethod.Designer.vb">
+      <DependentUpon>PaymentMethod.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentMethod.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintingOR.vb" />
+    <Compile Include="promo.Designer.vb">
+      <DependentUpon>promo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="promo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reports.Designer.vb">
+      <DependentUpon>reports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="reports.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reportsCR.Designer.vb">
+      <DependentUpon>reportsCR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="reportsCR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reprint.Designer.vb">
+      <DependentUpon>reprint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="reprint.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReprintWristbandSticker.Designer.vb">
+      <DependentUpon>ReprintWristbandSticker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReprintWristbandSticker.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="seatDEMO.Designer.vb">
+      <DependentUpon>seatDEMO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="seatDEMO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="seat.Designer.vb">
+      <DependentUpon>seat.vb</DependentUpon>
+    </Compile>
+    <Compile Include="seat.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="secondscreen.Designer.vb">
+      <DependentUpon>secondscreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="secondscreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Souvenir.Designer.vb">
+      <DependentUpon>Souvenir.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Souvenir.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.Designer.vb">
+      <DependentUpon>SplashScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="testseat.Designer.vb">
+      <DependentUpon>testseat.vb</DependentUpon>
+    </Compile>
+    <Compile Include="testseat.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="void_tblDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>void_tblDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="voidtransaction.Designer.vb">
+      <DependentUpon>voidtransaction.vb</DependentUpon>
+    </Compile>
+    <Compile Include="voidtransaction.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="void_tblDataSet.vb">
+      <DependentUpon>void_tblDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ZebraRawPrint.vb" />
+    <Compile Include="ZReading.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ApprovedCode.resx">
+      <DependentUpon>ApprovedCode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="backendreport.resx">
+      <DependentUpon>backendreport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baggage.resx">
+      <DependentUpon>baggage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CardDetails.resx">
+      <DependentUpon>CardDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cashierreport.resx">
+      <DependentUpon>cashierreport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="destinationDEMO.resx">
+      <DependentUpon>destinationDEMO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="destination.resx">
+      <DependentUpon>destination.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnableManagerActivity.resx">
+      <DependentUpon>EnableManagerActivity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputCustomerDetails.resx">
+      <DependentUpon>InputCustomerDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="introductory.resx">
+      <DependentUpon>introductory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntroductoryForm.resx">
+      <DependentUpon>IntroductoryForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListOfReport.resx">
+      <DependentUpon>ListOfReport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainformDEMO.resx">
+      <DependentUpon>mainformDEMO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainform.resx">
+      <DependentUpon>mainform.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainformTM.resx">
+      <DependentUpon>mainformTM.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="management.resx">
+      <DependentUpon>management.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="originDEMO.resx">
+      <DependentUpon>originDEMO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="origin.resx">
+      <DependentUpon>origin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaymentMethod.resx">
+      <DependentUpon>PaymentMethod.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="promo.resx">
+      <DependentUpon>promo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportBackEnd.rdlc" />
+    <EmbeddedResource Include="ReportAuditTrail.rdlc" />
+    <EmbeddedResource Include="ReportVoid.rdlc" />
+    <EmbeddedResource Include="ReportSales.rdlc" />
+    <EmbeddedResource Include="reports.resx">
+      <DependentUpon>reports.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reportsCR.resx">
+      <DependentUpon>reportsCR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reprint.resx">
+      <DependentUpon>reprint.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReprintWristbandSticker.resx">
+      <DependentUpon>ReprintWristbandSticker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="seatDEMO.resx">
+      <DependentUpon>seatDEMO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="seat.resx">
+      <DependentUpon>seat.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="secondscreen.resx">
+      <DependentUpon>secondscreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Souvenir.resx">
+      <DependentUpon>Souvenir.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testseat.resx">
+      <DependentUpon>testseat.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="voidtransaction.resx">
+      <DependentUpon>voidtransaction.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="accumulated_amount_tblDataSet.xsc">
+      <DependentUpon>accumulated_amount_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="accumulated_amount_tblDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>accumulated_amount_tblDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="accumulated_amount_tblDataSet.xss">
+      <DependentUpon>accumulated_amount_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="audit_trail_tblDataSet.xsc">
+      <DependentUpon>audit_trail_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="audit_trail_tblDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>audit_trail_tblDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="audit_trail_tblDataSet.xss">
+      <DependentUpon>audit_trail_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ejournal_tblDataSet.xsc">
+      <DependentUpon>ejournal_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ejournal_tblDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ejournal_tblDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ejournal_tblDataSet.xss">
+      <DependentUpon>ejournal_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Classes\App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="or_tblDataSet.xsc">
+      <DependentUpon>or_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="or_tblDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>or_tblDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="or_tblDataSet.xss">
+      <DependentUpon>or_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="void_tblDataSet.xsc">
+      <DependentUpon>void_tblDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="void_tblDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>void_tblDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="void_tblDataSet.xss">
+      <DependentUpon>void_tblDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App Logo%28B&amp;G%291.ico" />
+    <Content Include="csf.ico" />
+    <Content Include="metta.ico" />
+    <None Include="Images\CompLogo.PNG" />
+    <None Include="Resources\CompLogo.bmp" />
+    <None Include="Resources\300.png" />
+    <None Include="Resources\VINTA.png" />
+    <None Include="Resources\Logo.png" />
+    <None Include="Resources\MMDAPic.png" />
+    <None Include="Resources\App Logo%28B&amp;G%291.png" />
+    <None Include="Resources\5.jpg" />
+    <None Include="Resources\4.jpg" />
+    <None Include="Resources\3.jpg" />
+    <None Include="Resources\2.JPG" />
+    <None Include="Resources\1.jpg" />
+    <None Include="Images\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="log4net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.ReportViewer.DataVisualization">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.ReportViewer.ProcessingObjectModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

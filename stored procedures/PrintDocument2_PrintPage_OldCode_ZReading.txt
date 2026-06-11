@@ -1,0 +1,358 @@
+ Try
+            Dim begin_or_no, end_or_no, begin_balance, end_balance, no_of_transaction, total_sales, void_amount, vat, vat_exempt, vatable_sale, zero_rated_sale, discount, z_counter, no_of_void, begin_void_no, end_void_no, grand_total As String
+
+            Dim zvalue As New MySqlCommand("SELECT MIN(begin_or_no), 
+                                            MAX(end_or_no), 
+                                            (SELECT IFNULL(MAX(NULLIF(end_balance, 0)), 0) FROM accumulated_amount_tbl WHERE payment_date < '" & DateTimePickerZStart.Text & "'), 
+                                            (SELECT (SELECT SUM(total_sales) FROM accumulated_amount_tbl WHERE pos_id = '" & LabelPOSno.Text & "' AND payment_date = '" & DateTimePickerZStart.Text & "') + (SELECT IFNULL(MAX(NULLIF(end_balance, 0)), 0) FROM accumulated_amount_tbl WHERE payment_date < '" & DateTimePickerZStart.Text & "')),
+                                            SUM(no_of_transaction), 
+                                            SUM(total_sales), 
+                                            SUM(discount), 
+                                            SUM(vatable), 
+                                            SUM(vat), 
+                                            SUM(vat_exempt), 
+                                            SUM(zero_rated), 
+                                            MAX(z_counter), 
+                                            SUM(no_of_void),
+                                            IFNULL(MIN(NULLIF(begin_void_no, 0)),0),
+                                            MAX(end_void_no), 
+                                            SUM(void_amount), 
+                                            SUM(grand_total) 
+                                            FROM accumulated_amount_tbl WHERE pos_id = '" & LabelPOSno.Text & "' AND payment_date = '" & DateTimePickerZStart.Text & "'", conn)
+            zvalue.CommandType = CommandType.Text
+            Dim zda As New MySqlDataAdapter(zvalue)
+            Dim zdt As New DataTable
+            zvalue.CommandTimeout = 0
+
+            zda.Fill(zdt)
+
+            begin_or_no = zdt.Rows(0)(0).ToString
+            end_or_no = zdt.Rows(0)(1).ToString
+            begin_balance = zdt.Rows(0)(2).ToString
+            end_balance = zdt.Rows(0)(3).ToString
+            no_of_transaction = zdt.Rows(0)(4).ToString
+            total_sales = zdt.Rows(0)(5).ToString
+            discount = zdt.Rows(0)(6).ToString
+            vatable_sale = zdt.Rows(0)(7).ToString
+            vat = zdt.Rows(0)(8).ToString
+            vat_exempt = zdt.Rows(0)(9).ToString
+            zero_rated_sale = zdt.Rows(0)(10).ToString
+            z_counter = zdt.Rows(0)(11).ToString
+            no_of_void = zdt.Rows(0)(12).ToString
+            begin_void_no = zdt.Rows(0)(13).ToString
+            end_void_no = zdt.Rows(0)(14).ToString
+            void_amount = zdt.Rows(0)(15).ToString
+            grand_total = zdt.Rows(0)(16).ToString
+
+
+
+            Dim TextToPrint As String = ""
+            Dim N As New Font("Merchant Copy", 13)
+            Dim H As New Font("Merchant Copy", 15)
+            Dim B As New Font("Merchant Copy", 17, FontStyle.Bold)
+
+            Dim datetoday As String = String.Format("{0: dd, yyyy}", DateTime.Now)
+            Dim timetoday As DateTime = String.Format("{0:HH:mm:ss}", DateTime.Now)
+            Dim convertedTimeToday As String = timetoday.ToString("hh:mm tt")
+
+            Dim sngCenterPage As Single
+
+            Dim sf As New StringFormat()
+            sf.Alignment = StringAlignment.Far
+
+            ''for centering company logo
+            'get the printer resolution
+            'Dim thisDpiX As Integer = e.Graphics.DpiX
+            'Dim r As Single = thisDpiX / 96
+            'Dim targetwidth As Integer = 235 * r
+
+            ''get the size of the margins in pixels
+            ''convert from inches to pixels
+            ''your printer and windows may be set on units other than inches
+            ''so you need to look at the values using debug
+            'Dim marginwidthpixels = e.MarginBounds.Width * thisDpiX / 100
+            ''determine the center of the margins which is half the margin size from the left margin
+            'Dim c As Single = (marginwidthpixels / 2) + (e.MarginBounds.X * thisDpiX / 100)
+            ''determine the left edge of the image from the center
+            ''subtract half the drawing size from the center in pixels
+            'Dim l As Integer = c - (targetwidth / 2)
+            ''determine the top of the margins in pixels
+            'Dim t As Integer = e.MarginBounds.Y * thisDpiX / 100
+
+            TextToPrint &= Environment.NewLine
+            'e.Graphics.DrawImage(PictureBoxLogoReceipt.Image, 92, 0)
+
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("CAVITE SUPERFERRY", N).Width / 2)
+            e.Graphics.DrawString("CAVITE SUPERFERRY", N, Brushes.Black, sngCenterPage, 70)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("PINOY CATAMARAN", N).Width / 2)
+            e.Graphics.DrawString("PINOY CATAMARAN", N, Brushes.Black, sngCenterPage, 82)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("#17 SILAHIS STREET,", N).Width / 2)
+            e.Graphics.DrawString("#17 SILAHIS STREET,", N, Brushes.Black, sngCenterPage, 94)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("BARANGAY TANZA, NAVOTAS CITY", N).Width / 2)
+            e.Graphics.DrawString("BARANGAY TANZA, NAVOTAS CITY", N, Brushes.Black, sngCenterPage, 106)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("PHILIPPINES", N).Width / 2)
+            e.Graphics.DrawString("PHILIPPINES", N, Brushes.Black, sngCenterPage, 118)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("VAT REG TIN: 745-993-747-000", N).Width / 2)
+            e.Graphics.DrawString("VAT REG TIN: 745-993-747-000", N, Brushes.Black, sngCenterPage, 130)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("POS" & LabelPOSno.Text & "-SN: " & LabelSerial.Text, N).Width / 2)
+            e.Graphics.DrawString("POS" & LabelPOSno.Text & "-SN: " & LabelSerial.Text, N, Brushes.Black, sngCenterPage, 142)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("MIN: XXXXXXXXXX", N).Width / 2)
+            e.Graphics.DrawString("MIN: XXXXXXXXXX", N, Brushes.Black, sngCenterPage, 154)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("----------------------------------------", N).Width / 2)
+            e.Graphics.DrawString("----------------------------------------", N, Brushes.Black, sngCenterPage, 165)
+
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("Z-READING", B).Width / 2)
+            e.Graphics.DrawString("Z-READING", B, Brushes.Black, sngCenterPage, 173)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("Date of: " & DateTimePickerZStart.Text, N).Width / 2)
+            e.Graphics.DrawString("Date of: " & DateTimePickerZStart.Text, N, Brushes.Black, sngCenterPage, 187)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("----------------------------------------", N).Width / 2)
+            e.Graphics.DrawString("----------------------------------------", N, Brushes.Black, sngCenterPage, 195)
+
+            'Summary of Transactions
+
+            If begin_balance = "" Then
+                e.Graphics.DrawString("Beginning OR No.:" & ControlChars.NewLine &
+                                      "Ending OR No.:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Beginning Balance:" & ControlChars.NewLine &
+                                      "Ending Balance:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total No. of Transaction:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total total_sales:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total Discount:" & ControlChars.NewLine &
+                                      "Total VATable total_sales:" & ControlChars.NewLine &
+                                      "Total VAT:" & ControlChars.NewLine &
+                                      "Total VAT-Exempt:" & ControlChars.NewLine &
+                                      "Total Zero Rated Sale:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Reset Counter No:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Z-Counter:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total No. of Void:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Beginning Void No.:" & ControlChars.NewLine &
+                                      "Ending Void No.:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Accumulated Void Amount:" & ControlChars.NewLine &
+                                      "Accumulated Grand Total:", N, Brushes.Black, New RectangleF(4, 205, 0, 0))
+                e.Graphics.DrawString(begin_or_no & ControlChars.NewLine &
+                                      end_or_no & ControlChars.NewLine & ControlChars.NewLine &
+                                      begin_balance & ControlChars.NewLine &
+                                      end_balance & ControlChars.NewLine & ControlChars.NewLine &
+                                      no_of_transaction & ControlChars.NewLine & ControlChars.NewLine &
+                                      total_sales & ControlChars.NewLine & ControlChars.NewLine &
+                                      discount & ControlChars.NewLine &
+                                      vatable_sale & ControlChars.NewLine &
+                                      vat & ControlChars.NewLine &
+                                      vat_exempt, N, Brushes.Black, New RectangleF(100, 205, 175, 175), sf)
+                e.Graphics.DrawString(zero_rated_sale & ControlChars.NewLine & ControlChars.NewLine &
+                                      "0" & ControlChars.NewLine & ControlChars.NewLine &
+                                      z_counter & ControlChars.NewLine & ControlChars.NewLine &
+                                      no_of_void & ControlChars.NewLine & ControlChars.NewLine &
+                                      begin_void_no & ControlChars.NewLine &
+                                      end_void_no & ControlChars.NewLine & ControlChars.NewLine &
+                                      void_amount & ControlChars.NewLine &
+                                      grand_total, N, Brushes.Black, New RectangleF(100, 380, 175, 175), sf)
+
+            Else
+
+                e.Graphics.DrawString("Beginning OR No.:" & ControlChars.NewLine &
+                                      "Ending OR No.:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Beginning Balance:" & ControlChars.NewLine &
+                                      "Ending Balance:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total No. of Transaction:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total total_sales:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total Discount:" & ControlChars.NewLine &
+                                      "Total VATable total_sales:" & ControlChars.NewLine &
+                                      "Total VAT Amount:" & ControlChars.NewLine &
+                                      "Total VAT Exempt :" & ControlChars.NewLine &
+                                      "Total Zero Rated Sale:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Reset Counter No:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Z-Counter:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Total No. of Void:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Beginning Void No.:" & ControlChars.NewLine &
+                                      "Ending Void No.:" & ControlChars.NewLine & ControlChars.NewLine &
+                                      "Accumulated Void Amount:" & ControlChars.NewLine &
+                                      "Accumulated Grand Total:", N, Brushes.Black, New RectangleF(4, 205, 0, 0))
+                e.Graphics.DrawString(begin_or_no & ControlChars.NewLine &
+                                      end_or_no & ControlChars.NewLine & ControlChars.NewLine &
+                                      begin_balance & ControlChars.NewLine &
+                                      end_balance & ControlChars.NewLine & ControlChars.NewLine &
+                                      no_of_transaction & ControlChars.NewLine & ControlChars.NewLine &
+                                      total_sales & ControlChars.NewLine & ControlChars.NewLine &
+                                      discount & ControlChars.NewLine &
+                                      vatable_sale & ControlChars.NewLine &
+                                      vat & ControlChars.NewLine &
+                                      vat_exempt, N, Brushes.Black, New RectangleF(100, 205, 175, 175), sf)
+                e.Graphics.DrawString(zero_rated_sale & ControlChars.NewLine & ControlChars.NewLine &
+                                      "0" & ControlChars.NewLine & ControlChars.NewLine &
+                                      z_counter & ControlChars.NewLine & ControlChars.NewLine &
+                                      no_of_void & ControlChars.NewLine & ControlChars.NewLine &
+                                      begin_void_no & ControlChars.NewLine &
+                                      end_void_no & ControlChars.NewLine & ControlChars.NewLine &
+                                      void_amount & ControlChars.NewLine &
+                                      grand_total, N, Brushes.Black, New RectangleF(100, 380, 175, 175), sf)
+            End If
+
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("----------------------------------------", N).Width / 2)
+            e.Graphics.DrawString("----------------------------------------", N, Brushes.Black, sngCenterPage, 545)
+
+            'Printed by
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("Printed By: " & LabelUserName.Text, N).Width / 2)
+            e.Graphics.DrawString("Printed By: " & LabelUserName.Text, N, Brushes.Black, sngCenterPage, 555)
+            'Printed date & time
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("Printed on" & MonthName(Now.Month) & " " & datetoday, N).Width / 2)
+            e.Graphics.DrawString("Printed on " & MonthName(Now.Month) & " " & datetoday, N, Brushes.Black, sngCenterPage, 580)
+            sngCenterPage = Convert.ToSingle(e.PageBounds.Width / 2 - e.Graphics.MeasureString("at " & timetoday, N).Width / 2)
+            e.Graphics.DrawString("at " & timetoday, N, Brushes.Black, sngCenterPage, 595)
+
+            Try
+                conn.Open()
+                Dim cdd As New MySqlCommand("UPDATE accumulated_amount_tbl SET begin_balance = @begin_balance, end_balance = @end_balance WHERE pos_id = @pos_id AND payment_date = @payment_date", conn)
+                cdd.CommandType = CommandType.Text
+                cdd.Parameters.AddWithValue("@begin_balance", begin_balance)
+                cdd.Parameters.AddWithValue("@end_balance", end_balance)
+                cdd.Parameters.AddWithValue("@pos_id", LabelPOSno.Text)
+                cdd.Parameters.AddWithValue("@payment_date", DateTimePickerZStart.Text)
+                Dim reader As MySqlDataReader
+
+                reader = cdd.ExecuteReader
+                reader.Close()
+
+                conn.Close()
+
+                '--------------------------Appending Z-READING to textfile--------------------------
+                Try
+
+                    Dim filepath As String = "C:\E-Journal\" & DateTime.Today.ToString("yyyy-MM-dd") & ".txt"
+                    '' Dim filepath As String = "C:\E-Journal\" & "2019-11-14" & ".txt"
+
+
+                    Dim sw As StreamWriter
+                    ' Dim fs As FileStream
+
+
+                    ' Dim fs As FileStream
+
+
+
+
+
+                    If (Not File.Exists(filepath)) Then
+
+                        sw = File.CreateText(filepath)
+                        sw.WriteLine("           CAVITE SUPERFERRY")
+                        sw.WriteLine("            PINOY CATAMARAN")
+                        sw.WriteLine("          #17 SILAHIS STREET,")
+                        sw.WriteLine("     BARANGAY TANZA, NAVOTAS CITY")
+                        sw.WriteLine("              PHILIPPINES")
+                        sw.WriteLine("      VAT REG TIN: 745-993-747-000")
+                        sw.WriteLine("      POS" & LabelPOSno.Text & "-SN: " & LabelSerial.Text)
+                        sw.WriteLine("            MIN: XXXXXXXXXX")
+                        sw.WriteLine("----------------------------------------")
+                        sw.WriteLine("              Z-READING")
+                        sw.WriteLine("           Date of: " & DateTimePickerXReport.Text)
+                        sw.WriteLine("----------------------------------------")
+                        sw.WriteLine("Beginning OR No.:                 " & begin_or_no.ToString())
+                        sw.WriteLine("Ending OR No.:                    " & end_or_no.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Beginning Balance:                " & begin_balance.ToString())
+                        sw.WriteLine("Ending Balance:                   " & end_balance.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Total No. of Transaction          " & no_of_transaction.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Total total_sales                       " & total_sales.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Total Discount:                   " & discount.ToString())
+                        sw.WriteLine("Total VATable total_sales:              " & vatable_sale.ToString())
+                        sw.WriteLine("Total VAT:                        " & vat.ToString())
+                        sw.WriteLine("Total VAT-Exempt:                 " & vat_exempt.ToString())
+                        sw.WriteLine("Total Zero Rated Sale:            " & zero_rated_sale.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Reset Counter No:                 " & "0")
+                        sw.WriteLine("")
+                        sw.WriteLine("Z-Counter:                        " & z_counter.ToString())
+                        sw.WriteLine("Total No. of Void:                " & no_of_void.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Beginning Void No.:               " & begin_void_no.ToString())
+                        sw.WriteLine("Ending Void No.:                  " & end_void_no.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Accumulated Void Amount:          " & void_amount.ToString())
+                        sw.WriteLine("Accumulated Grand Total:          " & grand_total.ToString())
+                        sw.WriteLine("----------------------------------------")
+                        sw.WriteLine("        Printed By: " & LabelUserName.Text)
+                        sw.WriteLine("")
+                        sw.WriteLine("    Printed on : " & MonthName(Now.Month) & " " & datetoday)
+                        sw.WriteLine("          at: " & timetoday)
+                        sw.WriteLine("")
+                        sw.WriteLine("")
+                        sw.WriteLine("")
+
+                    Else
+                        sw = File.AppendText(filepath)
+                        sw.WriteLine("           CAVITE SUPERFERRY")
+                        sw.WriteLine("            PINOY CATAMARAN")
+                        sw.WriteLine("          #17 SILAHIS STREET,")
+                        sw.WriteLine("     BARANGAY TANZA, NAVOTAS CITY")
+                        sw.WriteLine("              PHILIPPINES")
+                        sw.WriteLine("      VAT REG TIN: 745-993-747-000")
+                        sw.WriteLine("      POS" & LabelPOSno.Text & "-SN: " & LabelSerial.Text)
+                        sw.WriteLine("            MIN: XXXXXXXXXX")
+                        sw.WriteLine("----------------------------------------")
+                        sw.WriteLine("              Z-READING")
+                        sw.WriteLine("           Date of: " & DateTimePickerXReport.Text)
+                        sw.WriteLine("----------------------------------------")
+                        sw.WriteLine("Beginning OR No.:                 " & begin_or_no.ToString())
+                        sw.WriteLine("Ending OR No.:                    " & end_or_no.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Beginning Balance:                " & begin_balance.ToString())
+                        sw.WriteLine("Ending Balance:                   " & end_balance.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Total No. of Transaction          " & no_of_transaction.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Total total_sales:                      " & total_sales.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Total Discount:                   " & discount.ToString())
+                        sw.WriteLine("Total VATable total_sales:              " & vatable_sale.ToString())
+                        sw.WriteLine("Total VAT:                        " & vat.ToString())
+                        sw.WriteLine("Total VAT-Exempt:                 " & vat_exempt.ToString())
+                        sw.WriteLine("Total Zero Rated Sale:            " & zero_rated_sale.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Reset Counter No:                 " & "0")
+                        sw.WriteLine("")
+                        sw.WriteLine("Z-Counter:                        " & z_counter.ToString())
+                        sw.WriteLine("Total No. of Void:                " & no_of_void.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Beginning Void No.:               " & begin_void_no.ToString())
+                        sw.WriteLine("Ending Void No.:                  " & end_void_no.ToString())
+                        sw.WriteLine("")
+                        sw.WriteLine("Accumulated Void Amount:          " & void_amount.ToString())
+                        sw.WriteLine("Accumulated Grand Total:          " & grand_total.ToString())
+                        sw.WriteLine("----------------------------------------")
+                        sw.WriteLine("        Printed By: " & LabelUserName.Text)
+                        sw.WriteLine("")
+                        sw.WriteLine("    Printed on : " & MonthName(Now.Month) & " " & datetoday)
+                        sw.WriteLine("          at: " & timetoday)
+                        sw.WriteLine("")
+                        sw.WriteLine("")
+                        sw.WriteLine("")
+                    End If
+
+
+                    sw.Close()
+
+                    Dim fillInfo As FileInfo
+
+                    fillInfo = New FileInfo(filepath)
+                    If fillInfo.Exists = True Then
+                        fillInfo.Attributes = FileAttributes.Encrypted
+                    End If
+
+                Catch ex As Exception
+                    MsgBox(ex.Message, "Error writing to log file.")
+                End Try
+
+                sf.Dispose()
+                conn.Close()
+            Catch ex As Exception
+                MsgBox(ex.Message)
+                conn.Close()
+            End Try
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try

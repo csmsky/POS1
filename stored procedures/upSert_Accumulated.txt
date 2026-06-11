@@ -1,0 +1,126 @@
+DELIMITER $$
+
+CREATE PROCEDURE upsertAccumulatedAmount (
+    IN p_user_id      VARCHAR(15),
+    IN p_payment_date DATE,
+    IN p_pos_id       INT(11),
+    IN p_end_or_no    VARCHAR(25)
+)
+BEGIN
+    DECLARE v_exists      INT DEFAULT 0;
+    DECLARE v_no_trx      INT DEFAULT 0;
+    DECLARE v_total_sales DECIMAL(25,2) DEFAULT 0;
+    DECLARE v_discount    DECIMAL(25,2) DEFAULT 0;
+    DECLARE v_vatable     DECIMAL(25,2) DEFAULT 0;
+    DECLARE v_vat_exempt  DECIMAL(25,2) DEFAULT 0;
+    DECLARE v_vat         DECIMAL(25,2) DEFAULT 0;
+    DECLARE v_zero_rated  DECIMAL(25,2) DEFAULT 0;
+    DECLARE v_void_sales  DECIMAL(25,2) DEFAULT 0;
+    DECLARE v_grand_total DECIMAL(25,2) DEFAULT 0;
+
+    /* Check if accumulated row already exists */
+    SELECT COUNT(*)
+    INTO v_exists
+    FROM accumulated_amount_tbl
+    WHERE user_id = p_user_id
+      AND payment_date = p_payment_date;
+
+    /* Get totals from or_tbl in one scan */
+    SELECT
+        COUNT(or_no),
+        IFNULL(SUM(CASE WHEN void_status = 'no'
+                        THEN (vatable + vat + vat_exempt + zero_rated)-discount
+                   END), 0),
+        IFNULL(SUM(CASE WHEN void_status = 'no' THEN discount    END), 0),
+        IFNULL(SUM(CASE WHEN void_status = 'no' THEN vatable     END), 0),
+        IFNULL(SUM(CASE WHEN void_status = 'no' THEN vat_exempt  END), 0),
+        IFNULL(SUM(CASE WHEN void_status = 'no' THEN vat         END), 0),
+        IFNULL(SUM(CASE WHEN void_status = 'no' THEN zero_rated  END), 0),
+        IFNULL(SUM(CASE WHEN void_status = 'yes'
+                        THEN vatable + vat + vat_exempt + zero_rated
+                   END), 0)
+    INTO
+        v_no_trx,
+        v_total_sales,
+        v_discount,
+        v_vatable,
+        v_vat_exempt,
+        v_vat,
+        v_zero_rated,
+        v_void_sales
+    FROM or_tbl
+    WHERE cashier_id = p_user_id
+      AND payment_date = p_payment_date;
+
+    SET v_grand_total = v_total_sales - v_void_sales;
+
+    /* If exists → UPDATE, else → INSERT */
+    IF v_exists > 0 THEN
+        UPDATE accumulated_amount_tbl
+        SET pos_id            = p_pos_id,
+            end_or_no         = p_end_or_no,
+            no_of_transaction = v_no_trx,
+            no_of_void        = 0,
+            total_sales       = v_total_sales,
+            discount          = v_discount,
+            vatable           = v_vatable,
+            vat_exempt        = v_vat_exempt,
+            vat               = v_vat,
+            zero_rated        = v_zero_rated,
+            grand_total       = v_grand_total,
+            updated           = 'yes'
+        WHERE user_id      = p_user_id
+          AND payment_date = p_payment_date;
+    ELSE
+        INSERT INTO accumulated_amount_tbl (
+            user_id,
+            pos_id,
+            payment_date,
+            begin_or_no,
+            end_or_no,
+            no_of_transaction,
+            no_of_void,
+            total_sales,
+            discount,
+            vatable,
+            vat_exempt,
+            vat,
+            zero_rated,
+            z_counter,
+            begin_void_no,
+            end_void_no,
+            void_amount,
+            grand_total,
+            printed,
+            upload,
+            updated
+        )
+        SELECT
+            p_user_id,
+            p_pos_id,
+            p_payment_date,
+            MIN(or_no),
+            MAX(or_no),
+            v_no_trx,
+            0,
+            v_total_sales,
+            v_discount,
+            v_vatable,
+            v_vat_exempt,
+            v_vat,
+            v_zero_rated,
+            0,
+            0,
+            0,
+            '0.00',
+            v_grand_total,
+            'no',
+            'no',
+            'yes'
+        FROM or_tbl
+        WHERE cashier_id = p_user_id
+          AND payment_date = p_payment_date;
+    END IF;
+END $$
+
+DELIMITER $$

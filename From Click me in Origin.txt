@@ -1,0 +1,130 @@
+        'for assigning button's function
+        Dim MyButton As Button
+        MyButton = CType(sender, Button)
+        mainform.ButtonOrigin.Text = MyButton.Text
+        mainform.TextBoxTripFare.Text = "0.00"
+        mainform.TextBoxBaggageCost.Text = "0.00"
+        mainform.TextBoxCardAmount.Text = "0.00"
+        mainform.TextBoxSeat.Clear()
+        mainform.TextBoxMoney.Clear()
+        mainform.TextBoxChange.Clear()
+
+        Dim cmd As New MySqlCommand
+        Dim dt As New DataTable()
+        Dim adapter As New MySqlDataAdapter
+        cmd.CommandText = "SELECT id FROM ride_fare_tbl where type = '" & MyButton.Text & "'"
+        conn.Open()
+        adapter.SelectCommand = cmd
+        adapter.SelectCommand.Connection = conn
+        adapter.Fill(dt)
+
+        If dt.Rows.Count > 0 Then
+            mainform.OriginID.Text = dt.Rows(0)(0).ToString()
+            mainform.TextBoxTripFare.Text = "0.00"
+            mainform.TextBoxBaggageCost.Text = "0.00"
+            mainform.TextBoxCardAmount.Text = "0.00"
+            mainform.TextBoxSeat.Clear()
+            mainform.TextBoxMoney.Clear()
+            mainform.TextBoxChange.Clear()
+
+            'If mainform.LabelStationID.Text = mainform.OriginID.Text Then
+            'Else
+            'MsgBox("STATION ORIGIN did not match !", MessageBoxIcon.Warning)
+            'mainform.OriginID.Text = "OID"
+            'mainform.ButtonOrigin.Text = "Origin"
+            'mainform.ButtonDestination.Text = "Destination"
+            'mainform.ComboBoxTime.Text = ""
+            'to add in vinta_pos - try or no
+            'mainform.TextBoxTripFare.Text = "0.00"
+            'mainform.TextBoxBaggageCost.Text = "0.00"
+            'mainform.TextBoxCardAmount.Text = "0.00"
+            'mainform.TextBoxSeat.Clear()
+            'mainform.TextBoxMoney.Clear()
+            ' mainform.TextBoxChange.Clear()
+            'End If
+        End If
+
+
+        Try
+            'vesselID = mainform.ComboBoxTime.DisplayMember.ToString()
+            ' scheduleID = mainform.ComboBoxTime.SelectedValue.ToString()
+            'combo = mainform.ComboBoxTime.Text
+
+            'fare
+            'Dim cmdd As New MySqlCommand("select amount from ride_fare_tbl where station_origin = @station_origin and station_dest = @station_dest", conn)
+            'Dim cmdd As New MySqlCommand("select amount from ride_fare_tbl where type = type", conn)
+            'Dim cmdd As New MySqlCommand("select fare from fare_tbl where station_origin = @station_origin", conn)
+            Dim cmdd As New MySqlCommand("select amount from ride_fare_tbl where type = type", conn)  'it should be @type but, there's an error if applied 
+            cmdd.Parameters.AddWithValue("@type", mainform.OriginID.Text)
+
+            'cmdd.Parameters.AddWithValue("@station_dest", mainform.DestinationID.Text)
+
+            Dim dtt As New DataTable()
+            Dim adapterr As New MySqlDataAdapter(cmdd)
+
+            adapterr.Fill(dtt)
+
+            Try
+
+                mainform.TextBoxTripFare.Text = dtt.Rows(0)(0).ToString()
+                mainform.LabelFare.Text = dtt.Rows(0)(0).ToString()
+
+                Dim sumpayment As String = Convert.ToDecimal(Val(mainform.TextBoxTripFare.Text) + Val(mainform.TextBoxBaggageCost.Text) + Val(mainform.TextBoxCardAmount.Text)).ToString("0.00")
+                mainform.LabelTotal.Text = sumpayment
+                secondscreen.PaymentDue.Text = sumpayment
+
+                'for computing VAT
+                Try
+                    mainform.LabelVATable.Text = (Math.Round(Val((sumpayment / "1.12")), 2))
+                    mainform.LabelVAT.Text = (Math.Round(Val((sumpayment) - Val(mainform.LabelVATable.Text)), 2))
+                    '--------- FOR MMDA
+                    'mainform.LabelVATable.Text = "0.00"
+                    'mainform.LabelVAT.Text = "0.00"
+                    '--------- FOR MMDA
+                    mainform.LabelVATExempt.Text = "0.00"
+                    mainform.LabelDiscount.Text = "0.00"
+                    'mainform.LabelPercent.Text = "0.00"
+                    mainform.LabelZeroRated.Text = "0.00"
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                End Try
+
+            Catch ex As Exception
+                MsgBox("Invalid YESS", vbOKOnly, "Error!")
+            End Try
+
+        Catch
+            MsgBox("Invalid, same destination and origin!", MessageBoxIcon.Error)
+            'mainform.ButtonDestination.Text = "Destination"
+        End Try
+
+        'for displaying amount in vfd
+        Try
+            With mainform.SerialPort1
+                .PortName = "COM2"
+                .BaudRate = 9600
+                .DataBits = 8
+                .Parity = Parity.None
+                .StopBits = StopBits.One
+                .Handshake = Handshake.None
+            End With
+
+            If Not (mainform.SerialPort1.IsOpen = True) Then
+                mainform.SerialPort1.Open()
+            End If
+
+            mainform.SerialPort1.DiscardOutBuffer()
+
+            'mainform.SerialPort1.Write(displayClear, 0, 1)
+
+            'mainform.SerialPort1.Write(displayHome, 0, 1)
+            mainform.SerialPort1.Write("Amount Due:" & vbCrLf & Convert.ToDecimal(mainform.TextBoxTripFare.Text).ToString("0.00"))
+            mainform.SerialPort1.Close()
+
+        Catch ex As Exception
+            'MsgBox(ex.Message)
+        End Try
+
+
+
+        Me.Close()

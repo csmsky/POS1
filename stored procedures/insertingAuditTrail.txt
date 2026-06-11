@@ -1,0 +1,23 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertingAuditTrail`(
+    IN p_audit_id INT(11),
+    IN p_or_no VARCHAR(25),
+    IN p_pos_id INT(11),
+    IN p_date date,
+    IN p_time time,
+    IN p_cashier VARCHAR(25), 
+    IN p_manager VARCHAR(25),
+    IN p_activity_performed VARCHAR(25),
+    IN p_vatable DECIMAL(25,2),
+    IN p_vat DECIMAL(25,2),
+    IN p_vat_exempt DECIMAL(25,2),
+    IN p_zero_rated DECIMAL(25,2),
+    IN p_discount DECIMAL(25,2),
+    IN p_total_amount DECIMAL(25,2),
+    IN p_upload VARCHAR(3)
+)
+BEGIN
+    INSERT INTO audit_trail_tbl (or_no, pos_id, date, time, cashier, manager, activity_performed, vatable, vat, vat_exempt, zero_rated, discount, total_amount, upload)
+    VALUES (p_or_no, p_pos_id, p_date, p_time, p_cashier, p_manager, p_activity_performed, p_vatable, p_vat, p_vat_exempt, p_zero_rated, p_discount, p_total_amount, p_upload);
+END$$
+DELIMITER ;

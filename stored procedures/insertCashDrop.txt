@@ -1,0 +1,60 @@
+DELIMITER $$
+
+CREATE PROCEDURE insertCashDrop (
+    IN  p_date_cashdrop  DATE,
+    IN  p_time_cashdrop  TIME,
+    IN  p_pos_id       INT,
+    IN  p_cashier_id   VARCHAR(15),
+    IN  p_cash_drop    DECIMAL(15,2),
+    IN  p_approvedby   VARCHAR(15),
+    IN  p_reason       VARCHAR(50),
+    OUT p_message      VARCHAR(255)
+)
+BEGIN
+    DECLARE v_exists INT DEFAULT 0;
+
+    -- Check if accumulated record exists
+    SELECT COUNT(*)
+    INTO v_exists
+    FROM accumulated_amount_tbl
+    WHERE pos_id = p_pos_id
+      AND user_id = p_cashier_id
+      AND payment_date = p_date_cashdrop;
+
+    START TRANSACTION;
+
+    IF v_exists = 0 THEN
+        -- ❗ No accumulated record = opening not yet created
+        SET p_message = 'NO ACCUMULATED RECORD FOUND';
+        ROLLBACK;
+    ELSE
+        -- Update accumulated table
+        UPDATE accumulated_amount_tbl
+        SET cash_drop = IFNULL(cash_drop, 0) + p_cash_drop
+        WHERE pos_id = p_pos_id
+          AND user_id = p_cashier_id
+          AND payment_date = p_date_cashdrop;
+
+        -- Insert audit trail (ALWAYS INSERT)
+        INSERT INTO cash_drop_tbl (
+            cashier_id,
+            cashdrop_amount,
+            reason,
+            approvedby,
+            date,
+	    time
+        ) VALUES (
+            p_cashier_id,
+            p_cash_drop,
+            p_reason,
+            p_approvedby,
+            NOW(),
+	    CURTIME()	
+        );
+
+        COMMIT;
+        SET p_message = 'CASH DROP SAVED';
+    END IF;
+
+END$$
+DELIMITER ;

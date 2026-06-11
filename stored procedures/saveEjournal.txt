@@ -1,0 +1,22 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `saveEjournal`(
+    IN p_payment_date DATE,
+    IN p_pos_id INT,
+    IN p_text LONGBLOB
+)
+BEGIN
+    IF EXISTS(SELECT 1 FROM textfile_tbl 
+              WHERE payment_date = p_payment_date 
+                AND pos_id = p_pos_id) THEN
+
+        DELETE FROM textfile_tbl 
+        WHERE payment_date = p_payment_date 
+          AND pos_id = p_pos_id;
+
+    END IF;
+
+    INSERT INTO textfile_tbl(payment_date, text_file, pos_id)
+    VALUES(p_payment_date, AES_ENCRYPT(p_text, 'strdjnltmyp'), p_pos_id);
+
+END$$
+DELIMITER ;

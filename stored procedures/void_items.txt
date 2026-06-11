@@ -1,0 +1,33 @@
+DELIMITER $$
+
+CREATE PROCEDURE void_item (
+    IN  p_void_no             VARCHAR(25),
+    IN  p_or_no	    	      VARCHAR(25),
+    IN  p_pos_id              INT(11),
+    IN  p_ride_type           VARCHAR(255),
+    IN  p_qty                 INT(11),
+    IN  p_user_id             VARCHAR(15),
+    IN  p_base_price          DECIMAL(25,2),
+    IN  p_vatable             DECIMAL(25,2),	
+    IN  p_vat_exempt          DECIMAL(25,2),
+    IN  p_zero_rated          DECIMAL(25,2),
+    IN  p_vat                 DECIMAL(25,2),
+    IN  p_discount            DECIMAL(25,2),
+    IN  p_total_amount        DECIMAL(25,2),
+    IN  p_void_type           VARCHAR(100),
+    IN  p_void_by             VARCHAR(15),
+    IN  p_upload              VARCHAR(3),
+    OUT p_message             VARCHAR(255)
+)
+BEGIN
+    IF p_or_no IS NULL OR p_or_no = 0 THEN
+        SET p_message = 'Item Invalid.';
+    ELSE
+        INSERT INTO void_item_tbl(void_no, or_no, transaction_date, transaction_time, pos_id, ride_type, qty, user_id, base_price, vatable, vat_exempt, zero_rated, vat, discount, total_amount, void_type, void_by, upload)
+        VALUES ( p_void_no, p_or_no, CURDATE(), CURTIME(), p_pos_id, p_ride_type, p_qty, p_user_id, p_base_price, p_vatable, p_vat_exempt, p_zero_rated, p_vat, p_discount, p_total_amount, p_void_type, p_void_by, p_upload);
+
+        SET p_message = 'Saved successfully.';
+    END IF;
+END$$
+
+DELIMITER ;

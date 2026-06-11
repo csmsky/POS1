@@ -1,0 +1,81 @@
+DELIMITER $$
+
+CREATE PROCEDURE newORTransaction (
+IN p_or_no 		VARCHAR(25), 
+IN p_payment_date 	DATE,
+IN p_payment_time 	TIME, 
+IN p_pos_id 		INT(11), 
+IN p_cashier_id 	VARCHAR(15),
+IN p_username    	VARCHAR(100),
+IN p_qty 		INT(10),
+IN p_base_price 	DECIMAL(25,2),
+IN p_discount 		DECIMAL(25,2),
+IN p_vatable 		DECIMAL(25,2),
+IN p_vat 		DECIMAL(25,2), 
+IN p_vat_exempt 	DECIMAL(25,2), 
+IN p_zero_rated 	DECIMAL(25,2), 
+IN p_total_amount 	DECIMAL(25,2), 
+IN p_payment_method 	VARCHAR(25), 
+IN p_cash_tendered 	DECIMAL(25,2), 
+IN p_change 	        DECIMAL(25,2), 
+IN p_approved_code 	INT(50), 
+IN p_void_status 	VARCHAR(3), 
+IN p_void_by 		VARCHAR(50), 
+IN p_upload 		VARCHAR(3), 
+IN p_updated 		VARCHAR(3)
+)
+
+BEGIN
+    INSERT INTO or_tbl (
+        or_no,
+        payment_date,
+        payment_time,
+        pos_id,
+        cashier_id,
+        username,
+        qty,
+        base_price,
+        discount,
+        vatable,
+        vat,
+        vat_exempt,
+        zero_rated,
+        total_amount,
+        payment_method,
+        cash_tendered,
+        change,
+        approved_code,
+        void_status,
+        void_by,
+        created_by,      -- timestamp
+        last_updated,    -- timestamp
+        upload,
+        updated
+    ) VALUES (
+        p_or_no,
+        p_payment_date,
+        p_payment_time,
+        p_pos_id,
+        p_cashier_id,
+        p_username,
+        p_qty,
+        p_base_price,
+        p_discount,
+        p_vatable,
+        p_vat,
+        p_vat_exempt,
+        p_zero_rated,
+        p_total_amount,
+        p_payment_method,
+        p_cash_tendered,
+        p_change,
+        p_approved_code,
+        p_void_status,
+        p_void_by,
+        NOW(),           -- created_by (timestamp)
+        NOW(),           -- last_updated
+        p_upload,
+        p_updated
+    );
+END$$
+DELIMITER ;

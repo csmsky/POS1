@@ -1,0 +1,307 @@
+DELIMITER $$
+
+CREATE PROCEDURE voidTransaction (
+    IN  p_or_no        VARCHAR(25),
+    IN  p_pos_id       INT(11),
+    IN  p_payment_date DATE,
+    IN  p_void_no      VARCHAR(25),
+    IN  p_manager_id   VARCHAR(50),
+    IN  p_cashier_id   VARCHAR(15),
+    OUT p_result       INT,
+    OUT p_message      VARCHAR(255)
+)
+BEGIN
+    DECLARE v_exists      INT DEFAULT 0;
+    DECLARE v_total_sales DECIMAL(25,2);
+    DECLARE v_vatable     DECIMAL(25,2);
+    DECLARE v_vat_exempt  DECIMAL(25,2);
+    DECLARE v_zero_rated  DECIMAL(25,2);
+    DECLARE v_vat         DECIMAL(25,2);
+    DECLARE v_discount    DECIMAL(25,2);
+    DECLARE v_void_total  DECIMAL(25,2);
+
+   -- add these two variables:
+    DECLARE v_sqlstate CHAR(5);
+    DECLARE v_errmsg   TEXT;
+
+    -- error handler
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+       GET DIAGNOSTICS CONDITION 1
+            v_sqlstate = RETURNED_SQLSTATE,
+            v_errmsg   = MESSAGE_TEXT;
+
+        ROLLBACK;
+        SET p_result  = -1;
+	SET p_message = CONCAT('SQLSTATE ', v_sqlstate, ': ', v_errmsg);
+        /* SET p_message = 'Database error while voiding transaction'; */
+    END;
+
+    START TRANSACTION;
+
+    -- check if OR exists and not yet voided
+    SELECT COUNT(*)
+    INTO v_exists
+    FROM or_tbl
+    WHERE or_no        = p_or_no
+      AND void_status  = 'no'
+      AND payment_date = p_payment_date
+      AND pos_id       = p_pos_id
+    FOR UPDATE;
+
+    IF v_exists = 0 THEN
+        -- already voided or not found
+        ROLLBACK;
+        SET p_result  = 0;
+        SET p_message = 'Ticket is already voided or expired';
+    ELSE
+       /*--------------------------------------------------------------*/
+        -- 2) Update OR (negative amounts, mark void)
+       /*--------------------------------------------------------------*/
+        UPDATE or_tbl
+        SET base_price   = base_price   * -1,
+            total_amount = total_amount * -1,
+            qty          = qty          * -1,
+            vatable      = vatable      * -1,
+            vat_exempt   = vat_exempt   * -1,
+            zero_rated   = zero_rated   * -1,
+            vat          = vat          * -1,
+            discount     = discount     * -1,
+            void_by      = p_manager_id,
+            void_status  = 'yes',
+            updated      = 'yes'
+        WHERE or_no = p_or_no
+          AND pos_id = p_pos_id;
+
+       /*--------------------------------------------------------------*/
+        -- 3) Update e_journal_tbl
+       /*--------------------------------------------------------------*/
+        UPDATE e_journal_tbl
+        SET qty           = qty           * -1,
+            base_price    = base_price    * -1, 
+            total_amount  = total_amount  * -1,
+            cash_tendered = cash_tendered * -1,
+            change_amount = change_amount * -1,
+            discount      = discount      * -1,
+            vatable       = vatable       * -1,
+            vat_exempt    = vat_exempt    * -1,
+            zero_rated    = zero_rated    * -1,
+            vat           = vat           * -1,
+            void_status   = 'yes',
+            updated       = 'yes'
+        WHERE or_no = p_or_no
+          AND pos_id = p_pos_id;
+
+       /*--------------------------------------------------------------*/
+        -- 4) Update or_items_tbl
+       /*--------------------------------------------------------------*/
+        UPDATE or_items_tbl
+        SET qty           	= qty           * -1,
+            base_price    	= base_price    * -1, 
+            total_amount  	= total_amount  * -1,
+            discount	   	= discount      * -1,
+            vatable       	= vatable       * -1,
+            vat_exempt    	= vat_exempt    * -1,
+            zero_rated    	= zero_rated    * -1,
+            vat           	= vat           * -1,
+            void_status  	= 'yes',
+            updated       	= 'yes'
+        WHERE or_no = p_or_no
+          AND pos_no = p_pos_id;
+
+       /*--------------------------------------------------------------*/
+        -- 5) Insert into void_tbl (copy from or_tbl)
+       /*--------------------------------------------------------------*/
+        INSERT INTO void_tbl
+        (
+            void_no, or_no, payment_date, payment_time, pos_id, qty, user_id,
+            base_price, vatable, vat_exempt, zero_rated, vat, discount,
+            total_amount, void_type, void_by, upload
+        )
+        SELECT
+            p_void_no, or_no, payment_date, payment_time, pos_id, qty, p_cashier_id,
+            base_price, vatable, vat_exempt, zero_rated, vat, discount,
+            total_amount, 'Ticket Sale', p_manager_id, 'no'
+        FROM or_tbl
+        WHERE or_no = p_or_no
+          AND pos_id = p_pos_id;
+
+       /*--------------------------------------------------------------*/
+        -- 6) Insert into audit_trail_tbl
+       /*--------------------------------------------------------------*/
+        INSERT INTO audit_trail_tbl
+        (
+            pos_id, or_no, date, time,
+            cashier, manager, activity_performed,
+            vatable, vat, vat_exempt, zero_rated, discount,
+            total_amount, upload
+        )
+        SELECT
+            p_pos_id,
+            or_no,
+            CURDATE(),
+            CURTIME(),
+            p_cashier_id,
+            p_manager_id,
+            'Void Transaction',
+            vatable, vat, vat_exempt, zero_rated, discount,
+            total_amount,
+            'no'
+        FROM or_tbl
+        WHERE or_no = p_or_no
+          AND pos_id = p_pos_id;
+
+       /*--------------------------------------------------------------*/
+        -- 7) Recompute totals for accumulated_amount_tbl
+       /*--------------------------------------------------------------*/
+        SELECT
+            -- total_sales
+            IFNULL((
+                SELECT SUM(total_amount)
+                FROM void_tbl
+                WHERE or_no = p_or_no
+                  AND pos_id = p_pos_id
+            ),0)
+            +
+            IFNULL((
+                SELECT grand_total
+                FROM accumulated_amount_tbl
+                WHERE user_id = p_cashier_id
+                  AND payment_date = p_payment_date
+                  AND pos_id = p_pos_id
+            ),0),
+            -- vatable
+            IFNULL((
+                SELECT vatable
+                FROM void_tbl
+                WHERE or_no = p_or_no
+                  AND pos_id = p_pos_id
+                LIMIT 1
+            ),0)
+            +
+            IFNULL((
+                SELECT vatable
+                FROM accumulated_amount_tbl
+                WHERE user_id = p_cashier_id
+                  AND payment_date = p_payment_date
+                  AND pos_id = p_pos_id
+            ),0),
+            -- vat_exempt
+            IFNULL((
+                SELECT vat_exempt
+                FROM void_tbl
+                WHERE or_no = p_or_no
+                  AND pos_id = p_pos_id
+                LIMIT 1
+            ),0)
+            +
+            IFNULL((
+                SELECT vat_exempt
+                FROM accumulated_amount_tbl
+                WHERE user_id = p_cashier_id
+                  AND payment_date = p_payment_date
+                  AND pos_id = p_pos_id
+            ),0),
+            -- zero_rated
+            IFNULL((
+                SELECT zero_rated
+                FROM void_tbl
+                WHERE or_no = p_or_no
+                  AND pos_id = p_pos_id
+                LIMIT 1
+            ),0)
+            +
+            IFNULL((
+                SELECT zero_rated
+                FROM accumulated_amount_tbl
+                WHERE user_id = p_cashier_id
+                  AND payment_date = p_payment_date
+                  AND pos_id = p_pos_id
+            ),0),
+            -- vat
+            IFNULL((
+                SELECT vat
+                FROM void_tbl
+                WHERE or_no = p_or_no
+                  AND pos_id = p_pos_id
+                LIMIT 1
+            ),0)
+            +
+            IFNULL((
+                SELECT vat
+                FROM accumulated_amount_tbl
+                WHERE user_id = p_cashier_id
+                  AND payment_date = p_payment_date
+                  AND pos_id = p_pos_id
+            ),0),
+            -- discount
+            IFNULL((
+                SELECT discount
+                FROM void_tbl
+                WHERE or_no = p_or_no
+                  AND pos_id = p_pos_id
+                LIMIT 1
+            ),0)
+            +
+            IFNULL((
+                SELECT discount
+                FROM accumulated_amount_tbl
+                WHERE user_id = p_cashier_id
+                  AND payment_date = p_payment_date
+                  AND pos_id = p_pos_id
+            ),0),
+            -- void_total
+            IFNULL((
+                SELECT SUM(total_amount)
+                FROM void_tbl
+                WHERE or_no = p_or_no
+                  AND pos_id = p_pos_id
+            ),0)
+            +
+            IFNULL((
+                SELECT void_amount
+                FROM accumulated_amount_tbl
+                WHERE user_id = p_cashier_id
+                  AND payment_date = p_payment_date
+                  AND pos_id = p_pos_id
+            ),0)
+        INTO
+            v_total_sales, v_vatable, v_vat_exempt, v_zero_rated,
+            v_vat, v_discount, v_void_total;
+
+        UPDATE accumulated_amount_tbl
+        SET no_of_void   = (SELECT COUNT(*)
+                            FROM void_tbl
+                            WHERE user_id = p_cashier_id
+                              AND payment_date = p_payment_date
+                              AND pos_id = p_pos_id),
+            begin_void_no = (SELECT MIN(void_no)
+                             FROM void_tbl
+                             WHERE user_id = p_cashier_id
+                               AND payment_date = p_payment_date
+                               AND pos_id = p_pos_id),
+            end_void_no   = (SELECT MAX(void_no)
+                             FROM void_tbl
+                             WHERE user_id = p_cashier_id
+                               AND payment_date = p_payment_date
+                               AND pos_id = p_pos_id),
+            void_amount   = v_void_total,
+            grand_total   = v_total_sales,
+            vatable       = v_vatable,
+            vat_exempt    = v_vat_exempt,
+            zero_rated    = v_zero_rated,
+            vat           = v_vat,
+            discount      = v_discount,
+            updated       = 'yes'
+        WHERE user_id      = p_cashier_id
+          AND payment_date = p_payment_date
+          AND pos_id       = p_pos_id;
+
+        COMMIT;
+        SET p_result  = 1;
+        SET p_message = 'Transaction voided successfully';
+    END IF;
+
+END$$
+
+DELIMITER ;

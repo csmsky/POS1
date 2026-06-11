@@ -1,0 +1,46 @@
+DELIMITER $$
+
+CREATE PROCEDURE updateZReading (
+    IN p_payment_date DATE,
+    IN p_pos_id INT,
+    OUT p_new_zcounter INT,
+    OUT p_prev_grand_total DECIMAL(18,2)
+)
+BEGIN
+    DECLARE v_zcounter INT DEFAULT 0;
+    DECLARE v_prev_date DATE;
+
+    -- Compute previous date
+    SET v_prev_date = DATE_SUB(p_payment_date, INTERVAL 1 DAY);
+
+    -- Get previous day's grand_total
+    SELECT IFNULL(MAX(grand_total), 0)
+    INTO p_prev_grand_total
+    FROM accumulated_amount_tbl
+    WHERE payment_date = v_prev_date
+      AND pos_id = p_pos_id;
+
+    -- Check if current date record exists
+    SELECT z_counter INTO v_zcounter
+    FROM accumulated_amount_tbl
+    WHERE payment_date = p_payment_date
+      AND pos_id = p_pos_id
+    LIMIT 1;
+
+    IF v_zcounter IS NULL THEN
+        SET p_new_zcounter = -1; -- NO RECORD FOUND
+    ELSE
+        SET p_new_zcounter = v_zcounter + 1;
+
+        UPDATE accumulated_amount_tbl
+        SET 
+            z_counter = p_new_zcounter,
+            printed = 'yes',
+            updated = 'yes'
+        WHERE payment_date = p_payment_date
+          AND pos_id = p_pos_id;
+    END IF;
+
+END $$
+
+DELIMITER ;

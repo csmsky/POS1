@@ -1,0 +1,102 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="pasigferryConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=localhost;user id=root;database=pasigferry&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=localhost;user id=root;database=pasigferry</Value>
+    </Setting>
+    <Setting Name="superferry_replicaConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.25;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.25;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica</Value>
+    </Setting>
+    <Setting Name="superferry_replicaConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.0.103;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.0.103;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica</Value>
+    </Setting>
+    <Setting Name="superferry_replicaConnectionString2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.30;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.30;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica</Value>
+    </Setting>
+    <Setting Name="superferry_replicaConnectionString3" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.30;user id=root;port=9999;database=superferry_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.30;user id=root;port=9999;database=superferry_replica</Value>
+    </Setting>
+    <Setting Name="superferry_replicaConnectionString4" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.27;user id=root;password=superferry@securepasswordreplica;persistsecurityinfo=True;port=9999;database=superferry_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.27;user id=root;password=superferry@securepasswordreplica;persistsecurityinfo=True;port=9999;database=superferry_replica</Value>
+    </Setting>
+    <Setting Name="superferry_replicaConnectionString5" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.0.102;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.0.102;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica</Value>
+    </Setting>
+    <Setting Name="superferry_replicaConnectionString6" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.43.92;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.43.92;user id=root;password=superferry@securepasswordreplica;port=9999;database=superferry_replica</Value>
+    </Setting>
+    <Setting Name="mmda_replicaConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=localhost;user id=root;database=mmda_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=localhost;user id=root;database=mmda_replica</Value>
+    </Setting>
+    <Setting Name="mmda_replicaConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.100;user id=root;password=vintareplica;port=9999;database=mmda_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.100;user id=root;password=vintareplica;port=9999;database=mmda_replica</Value>
+    </Setting>
+    <Setting Name="mmda_replicaConnectionString2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.100;user id=root;port=9999;password=vintareplica;database=mmda_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.100;user id=root;port=9999;password=vintareplica;database=mmda_replica</Value>
+    </Setting>
+    <Setting Name="mmda_replicaConnectionString3" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.100;user id=root;port=9999;database=mmda_replica&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.100;user id=root;port=9999;database=mmda_replica</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

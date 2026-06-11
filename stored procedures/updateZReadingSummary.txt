@@ -1,0 +1,45 @@
+DELIMITER $$
+
+CREATE PROCEDURE sp_getZReadingSummary(
+    IN p_pos_id INT,
+    IN p_payment_date DATE
+)
+BEGIN
+    SELECT 
+        MIN(begin_or_no) AS begin_or_no,
+        MAX(end_or_no) AS end_or_no,
+
+        (SELECT IFNULL(MAX(NULLIF(end_balance, 0)), 0)
+         FROM accumulated_amount_tbl 
+         WHERE payment_date < p_payment_date
+         AND pos_id = p_pos_id) AS begin_balance,
+
+        ((SELECT SUM(total_sales) 
+          FROM accumulated_amount_tbl 
+          WHERE pos_id = p_pos_id 
+          AND payment_date = p_payment_date)
+        +
+        (SELECT IFNULL(MAX(NULLIF(end_balance, 0)), 0)
+         FROM accumulated_amount_tbl 
+         WHERE payment_date < p_payment_date
+           AND pos_id = p_pos_id)) AS end_balance,
+
+        SUM(no_of_transaction) AS no_of_transaction,
+        SUM(total_sales) AS total_sales,
+        SUM(discount) AS discount,
+        SUM(vatable) AS vatable_sale,
+        SUM(vat) AS vat,
+        SUM(vat_exempt) AS vat_exempt,
+        SUM(zero_rated) AS zero_rated_sale,
+        MAX(z_counter) AS z_counter,
+        SUM(no_of_void) AS no_of_void,
+        IFNULL(MIN(NULLIF(begin_void_no, 0)),0) AS begin_void_no,
+        MAX(end_void_no) AS end_void_no,
+        SUM(void_amount) AS void_amount,
+        SUM(grand_total) AS grand_total
+    FROM accumulated_amount_tbl
+    WHERE pos_id = p_pos_id
+      AND payment_date = p_payment_date;
+
+END $$
+DELIMITER ;
