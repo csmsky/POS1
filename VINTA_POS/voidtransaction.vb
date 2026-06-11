@@ -30,7 +30,13 @@ Public Class voidtransaction
     Dim apdu As Apdu = New Apdu
     Dim command() As Byte
 
-    Dim todaysdate As String = String.Format("{0:yyyy-MM-dd}", DateTime.Now)
+    'Dim todaysdate As String = String.Format("{0:yyyy-MM-dd}", DateTime.Now) MODIFIED
+    ReadOnly Property todaysdate As String
+        Get
+            Return DateTime.Today.ToString("yyyy-MM-dd")
+        End Get
+    End Property
+    '-----------------------------------------------------------
 
     Dim no_of_void, begin_void_no, end_void_no, total_amount, vatable, vat_exempt, zero_rated, vat, discount As String
 

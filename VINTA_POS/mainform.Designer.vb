@@ -133,6 +133,8 @@ Partial Class mainform
         Me.label_code = New System.Windows.Forms.Label()
         Me.lblCname = New System.Windows.Forms.Label()
         Me.lblCno = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.LabelReset = New System.Windows.Forms.Label()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.ButtonVoidItem = New System.Windows.Forms.Button()
@@ -155,8 +157,6 @@ Partial Class mainform
         Me.ComboBoxDiscount = New System.Windows.Forms.ComboBox()
         Me.TextBoxDiscountPromo = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel13 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.LabelReset = New System.Windows.Forms.Label()
         Me.PanelHeader.SuspendLayout()
         CType(Me.PictureBoxBarcodeTicket, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxVINTALogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -612,7 +612,7 @@ Partial Class mainform
         Me.TextBoxChange.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBoxChange.Multiline = True
         Me.TextBoxChange.Name = "TextBoxChange"
-        Me.TextBoxChange.Size = New System.Drawing.Size(109, 40)
+        Me.TextBoxChange.Size = New System.Drawing.Size(108, 40)
         Me.TextBoxChange.TabIndex = 347
         '
         'TextBoxMoney
@@ -668,10 +668,10 @@ Partial Class mainform
         Me.ButtonLogout.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.ButtonLogout.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonLogout.ForeColor = System.Drawing.Color.AliceBlue
-        Me.ButtonLogout.Location = New System.Drawing.Point(382, 4)
+        Me.ButtonLogout.Location = New System.Drawing.Point(381, 4)
         Me.ButtonLogout.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonLogout.Name = "ButtonLogout"
-        Me.ButtonLogout.Size = New System.Drawing.Size(160, 77)
+        Me.ButtonLogout.Size = New System.Drawing.Size(161, 77)
         Me.ButtonLogout.TabIndex = 328
         Me.ButtonLogout.Text = "Logout"
         Me.ButtonLogout.UseVisualStyleBackColor = False
@@ -1065,7 +1065,7 @@ Partial Class mainform
         Me.ButtonReport.Location = New System.Drawing.Point(141, 4)
         Me.ButtonReport.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonReport.Name = "ButtonReport"
-        Me.ButtonReport.Size = New System.Drawing.Size(125, 77)
+        Me.ButtonReport.Size = New System.Drawing.Size(124, 77)
         Me.ButtonReport.TabIndex = 314
         Me.ButtonReport.Text = "Cash Management"
         Me.ButtonReport.UseVisualStyleBackColor = False
@@ -1077,7 +1077,7 @@ Partial Class mainform
         Me.ButtonTrainingMode.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.ButtonTrainingMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonTrainingMode.ForeColor = System.Drawing.Color.AliceBlue
-        Me.ButtonTrainingMode.Location = New System.Drawing.Point(274, 4)
+        Me.ButtonTrainingMode.Location = New System.Drawing.Point(273, 4)
         Me.ButtonTrainingMode.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonTrainingMode.Name = "ButtonTrainingMode"
         Me.ButtonTrainingMode.Size = New System.Drawing.Size(100, 77)
@@ -1332,7 +1332,7 @@ Partial Class mainform
         Me.ComboBoxPaymentMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBoxPaymentMethod.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBoxPaymentMethod.FormattingEnabled = True
-        Me.ComboBoxPaymentMethod.Location = New System.Drawing.Point(247, 17)
+        Me.ComboBoxPaymentMethod.Location = New System.Drawing.Point(246, 17)
         Me.ComboBoxPaymentMethod.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ComboBoxPaymentMethod.Name = "ComboBoxPaymentMethod"
         Me.ComboBoxPaymentMethod.Size = New System.Drawing.Size(160, 28)
@@ -1478,7 +1478,7 @@ Partial Class mainform
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.77519!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.22481!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 167.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.ButtonReport, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.ButtonLogout, 3, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.ButtonTrainingMode, 2, 0)
@@ -1617,6 +1617,28 @@ Partial Class mainform
         Me.lblCno.Size = New System.Drawing.Size(47, 17)
         Me.lblCno.TabIndex = 367
         Me.lblCno.Text = "lblCno"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label5.Location = New System.Drawing.Point(361, 53)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(112, 20)
+        Me.Label5.TabIndex = 368
+        Me.Label5.Text = "Reset Count: "
+        '
+        'LabelReset
+        '
+        Me.LabelReset.AutoSize = True
+        Me.LabelReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelReset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.LabelReset.Location = New System.Drawing.Point(479, 53)
+        Me.LabelReset.Name = "LabelReset"
+        Me.LabelReset.Size = New System.Drawing.Size(18, 20)
+        Me.LabelReset.TabIndex = 369
+        Me.LabelReset.Text = "0"
         '
         'TableLayoutPanel5
         '
@@ -1900,7 +1922,7 @@ Partial Class mainform
         Me.TableLayoutPanel12.ColumnCount = 3
         Me.TableLayoutPanel12.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.93103!))
         Me.TableLayoutPanel12.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.06897!))
-        Me.TableLayoutPanel12.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 213.0!))
+        Me.TableLayoutPanel12.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214.0!))
         Me.TableLayoutPanel12.Controls.Add(Me.TextBoxChange, 0, 0)
         Me.TableLayoutPanel12.Controls.Add(Me.Label4, 1, 0)
         Me.TableLayoutPanel12.Controls.Add(Me.ComboBoxPaymentMethod, 2, 0)
@@ -1919,7 +1941,7 @@ Partial Class mainform
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label4.Location = New System.Drawing.Point(121, 14)
+        Me.Label4.Location = New System.Drawing.Point(120, 14)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(75, 34)
@@ -1948,7 +1970,7 @@ Partial Class mainform
         Me.ComboBoxDiscount.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBoxDiscount.FormattingEnabled = True
         Me.ComboBoxDiscount.Items.AddRange(New Object() {"0.10", "0.25", "0.30", "buy 5 Ticket get 1free"})
-        Me.ComboBoxDiscount.Location = New System.Drawing.Point(3, 6)
+        Me.ComboBoxDiscount.Location = New System.Drawing.Point(3, 5)
         Me.ComboBoxDiscount.Name = "ComboBoxDiscount"
         Me.ComboBoxDiscount.Size = New System.Drawing.Size(223, 30)
         Me.ComboBoxDiscount.TabIndex = 368
@@ -1998,28 +2020,6 @@ Partial Class mainform
         Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82.0!))
         Me.TableLayoutPanel13.Size = New System.Drawing.Size(618, 335)
         Me.TableLayoutPanel13.TabIndex = 2
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label5.Location = New System.Drawing.Point(361, 53)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(112, 20)
-        Me.Label5.TabIndex = 368
-        Me.Label5.Text = "Reset Count: "
-        '
-        'LabelReset
-        '
-        Me.LabelReset.AutoSize = True
-        Me.LabelReset.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelReset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.LabelReset.Location = New System.Drawing.Point(479, 53)
-        Me.LabelReset.Name = "LabelReset"
-        Me.LabelReset.Size = New System.Drawing.Size(18, 20)
-        Me.LabelReset.TabIndex = 369
-        Me.LabelReset.Text = "0"
         '
         'mainform
         '

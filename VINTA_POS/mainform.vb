@@ -62,7 +62,13 @@ Public Class mainform
     Dim command() As Byte
     Dim combo
 
-    Dim todaysdate As String = Today.ToString("yyyy-MM-dd")
+    'Dim todaysdate As String = Today.ToString("yyyy-MM-dd") modified
+    ReadOnly Property todaysdate As String
+        Get
+            Return DateTime.Today.ToString("yyyy-MM-dd")
+        End Get
+    End Property
+
 
     Private _counter As SaleInvoiceCounter
 
@@ -741,10 +747,14 @@ Public Class mainform
                                 sw.WriteLine("              Quezon City")
                                 sw.WriteLine("      VAT REG TIN: 745-993-747-000")
                                 sw.WriteLine("        Accred. No.: XXXXXXXXXXX")
-                                sw.WriteLine("        Date Issued: XX/XX/XXXX")
+                                'sw.WriteLine("        Date Issued: XX/XX/XXXX") MODIFIED
+                                sw.WriteLine("        Date Issued: " & DateTime.Today.ToString("MM/dd/yyyy"))
+
                                 sw.WriteLine("        Valid Until: XX/XX/XXXX")
                                 sw.WriteLine("          PTU No.: XXXXXXXXX")
-                                sw.WriteLine("        Date Issued: XX/XX/XXXX")
+                                'sw.WriteLine("        Date Issued: XX/XX/XXXX") MODIFIED
+                                sw.WriteLine("        Date Issued: " & DateTime.Today.ToString("MM/dd/yyyy"))
+
                                 sw.WriteLine("        Valid Until: XX/XX/XXXX")
                                 sw.WriteLine("----------------------------------------")
                                 sw.WriteLine("THIS INVOICE/RECEIPT SHALL BE VALID FOR")
@@ -815,10 +825,14 @@ Public Class mainform
                                 sw.WriteLine("              Quezon City")
                                 sw.WriteLine("      VAT REG TIN: 745-993-747-000")
                                 sw.WriteLine("        Accred. No.: XXXXXXXXXXX")
-                                sw.WriteLine("        Date Issued: XX/XX/XXXX")
+                                'sw.WriteLine("        Date Issued: XX/XX/XXXX") MODIFIED
+                                sw.WriteLine("        Date Issued: " & DateTime.Today.ToString("MM/dd/yyyy"))
+
                                 sw.WriteLine("        Valid Until: XX/XX/XXXX")
                                 sw.WriteLine("          PTU No.: XXXXXXXXX")
-                                sw.WriteLine("        Date Issued: XX/XX/XXXX")
+                                'sw.WriteLine("        Date Issued: XX/XX/XXXX") MODIFIED
+                                sw.WriteLine("        Date Issued: " & DateTime.Today.ToString("MM/dd/yyyy"))
+
                                 sw.WriteLine("        Valid Until: XX/XX/XXXX")
                                 sw.WriteLine("----------------------------------------")
                                 sw.WriteLine("THIS INVOICE/RECEIPT SHALL BE VALID FOR")
@@ -914,10 +928,14 @@ Public Class mainform
                             file.WriteLine("              Quezon City")
                             file.WriteLine("      VAT REG TIN: 745-993-747-000")
                             file.WriteLine("        Accred. No.: XXXXXXXXXXX")
-                            file.WriteLine("        Date Issued: XX/XX/XXXX")
+                            'file.WriteLine("        Date Issued: XX/XX/XXXX") MODIFIED
+                            file.WriteLine("        Date Issued: " & DateTime.Today.ToString("MM/dd/yyyy"))
+
                             file.WriteLine("        Valid Until: XX/XX/XXXX")
                             file.WriteLine("          PTU No.: XXXXXXXXX")
-                            file.WriteLine("        Date Issued: XX/XX/XXXX")
+                            'file.WriteLine("        Date Issued: XX/XX/XXXX") MODIFIED
+                            file.WriteLine("        Date Issued: " & DateTime.Today.ToString("MM/dd/yyyy"))
+
                             file.WriteLine("        Valid Until: XX/XX/XXXX")
                             file.WriteLine("----------------------------------------")
                             file.WriteLine("THIS INVOICE/RECEIPT SHALL BE VALID FOR")

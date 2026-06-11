@@ -28,7 +28,13 @@ Public Class Receipt_OR_Printed
     Public Shared V_Name As String = "VINTA INTELLIGENT TECHNOLOGIES CORPORATION"
     Public Shared V_VatReg As String = "VAT REG. TIN#: 745-993-747-000"
     Public Shared V_Accreditation_No As String = "Accred No.: XXXXXX"
-    Public Shared V_Date_Issued As String = "Date Issued: 02/09/2026"
+    'Public Shared V_Date_Issued As String = "Date Issued: 02/09/2026" MODIFIED
+    Public Shared ReadOnly Property V_Date_Issued As String
+        Get
+            Return "Date Issued: " & DateTime.Today.ToString("MM/dd/yyyy")
+        End Get
+    End Property
+    '-----------------------------------------------------------------------------
 
     Dim cashierName As String = mainform.LabelCashierName.Text
     Dim saleInovice As String = mainform.TextBoxBarcode.Text
