@@ -24,7 +24,20 @@ Public Class InputCustomerDetails
     Private WithEvents ButtonConfirm As New Button()
 
     ' Call this from your Main POS Form to pass the Type AND the OR Number
+    ' Call this from your Main POS Form to pass the Type AND the OR Number
+    ' Call this from your Main POS Form to pass the Type AND the OR Number
     Public Sub SetTransactionDetails(type As String, orNo As String, Optional qty As String = "")
+
+        ' ONLY wipe the global database memory if this is a brand new, empty cart!
+        If mainform.ListViewCashier.Items.Count = 0 Then
+            eJournalCustomerData.CustomerList.Clear()
+        End If
+
+        ' ALWAYS wipe the visual window table so it's fresh for the current Ride Type
+        _pendingCustomers.Clear()
+        DataGridViewCustomers.DataSource = Nothing
+
+        ' Set the new data
         _transType = type
         _currentOR = orNo
         _currentQty = qty
@@ -32,6 +45,8 @@ Public Class InputCustomerDetails
         ' This will change the window title to clearly show the ride info!
         Me.Text = "Registering " & qty & "x " & type & " Rides"
     End Sub
+
+
 
 
     Private Sub InputCustomerDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -223,43 +238,24 @@ Public Class InputCustomerDetails
             Exit Sub
         End If
 
+        ' Generate the OR number dynamically
         auto()
 
-        Using dbConn As New MySqlConnection(strConn)
-            Try
-                dbConn.Open()
+        For Each cust As CustomerInfo In _pendingCustomers
+            ' ONLY SAVE TO THE MEMORY LIST! NO DATABASE QUERY HERE!
+            cust.ORNumber = mainform.TextBoxBarcode.Text
+            eJournalCustomerData.CustomerList.Add(cust)
+        Next
 
-                For Each cust As CustomerInfo In _pendingCustomers
-                    Using cmd As New MySqlCommand("insert_customer_procedure", dbConn)
-                        cmd.CommandType = CommandType.StoredProcedure
-                        cmd.Parameters.AddWithValue("@p_or_no", mainform.TextBoxBarcode.Text)
-                        cmd.Parameters.AddWithValue("@p_name", cust.Name)
-                        cmd.Parameters.AddWithValue("@p_id_no", cust.ID)
-                        cmd.Parameters.AddWithValue("@p_tin_no", cust.TIN)
-                        cmd.Parameters.AddWithValue("@p_address", cust.Address)
-                        cmd.Parameters.AddWithValue("@p_transType", cust.TransType)
-                        cmd.ExecuteNonQuery()
-                    End Using
+        MessageBox.Show("Customer saved to memory! It will officially upload to the database during checkout.", "Success")
 
-                    ' Add to your global/shared list
-                    cust.ORNumber = mainform.TextBoxBarcode.Text
-                    eJournalCustomerData.CustomerList.Add(cust)
-                Next
-
-                MessageBox.Show("Customer saved to database!", "Success")
-
-            Catch ex As Exception
-                MessageBox.Show("Error: " & ex.Message)
-                Exit Sub
-            End Try
-        End Using
         ' Close the form and return to POS
         mainform.CurrentCustomerName = _pendingCustomers(0).Name
         Me.DialogResult = DialogResult.OK
         _pendingCustomers.Clear()
         Me.Close()
-
     End Sub
+
 
     Private Sub RefreshGrid()
         Dim dt As New DataTable()
@@ -332,7 +328,7 @@ Public Class InputCustomerDetails
         Try
             Using dbConn As New MySqlConnection(strConn)
                 dbConn.Open()
-                Dim query As String = "SELECT id_no, tin_no, address FROM customer_tbl WHERE name = AES_ENCRYPT(@name, 'strdjnltmyp') LIMIT 1"
+                Dim query As String = "SELECT id_no, tin_no, address FROM customer_tbl WHERE name = AES_ENCRYPT(@name, 'strdjnltmyp') ORDER BY or_no DESC LIMIT 1"
 
                 Using cmd As New MySqlCommand(query, dbConn)
                     cmd.Parameters.AddWithValue("@name", TextBoxGuestName.Text)

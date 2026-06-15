@@ -59,10 +59,7 @@ Public Class Receipt_OR_Printed
                                   approvedCode As String,
                                   money As String,
                                   changeVal As String,
-                                  guestName As String,
-                                  guestId As String,
-                                  guestTin As String,
-                                  guestAddress As String,
+                                  customerList As List(Of CustomerInfo),
                                   vatable As String,
                                   vat As String,
                                   vatExempt As String,
@@ -152,31 +149,63 @@ Public Class Receipt_OR_Printed
                 sw.WriteLine("         CUSTOMER DETAILS")
                 sw.WriteLine("========================================")
                 sw.WriteLine("")
-                sw.WriteLine("Name :" & guestName)
-                sw.WriteLine("")
-                sw.WriteLine("ID:" & guestId)
-                sw.WriteLine("")
-                sw.WriteLine("TIN No. :" & guestTin)
-                sw.WriteLine("")
-                sw.WriteLine("Address :" & guestAddress)
-                sw.WriteLine("")
-                sw.WriteLine("")
-                sw.WriteLine("Signature: ____________________________")
-                sw.WriteLine("")
+
+                If customerList IsNot Nothing AndAlso customerList.Count > 0 Then
+                    For Each guest As CustomerInfo In customerList
+                        sw.WriteLine("Name :" & guest.Name)
+                        sw.WriteLine("")
+                        sw.WriteLine("ID:" & guest.ID)
+                        sw.WriteLine("")
+                        sw.WriteLine("TIN No. :" & guest.TIN)
+                        sw.WriteLine("")
+                        sw.WriteLine("Address :" & guest.Address)
+                        sw.WriteLine("")
+                        sw.WriteLine("")
+                        sw.WriteLine("Signature: ____________________________")
+                        sw.WriteLine("")
+                    Next
+                Else
+                    ' Fallback if list is empty
+                    sw.WriteLine("Name :")
+                    sw.WriteLine("")
+                    sw.WriteLine("ID:")
+                    sw.WriteLine("")
+                    sw.WriteLine("TIN No. :")
+                    sw.WriteLine("")
+                    sw.WriteLine("Address :")
+                    sw.WriteLine("")
+                    sw.WriteLine("")
+                    sw.WriteLine("Signature: ____________________________")
+                    sw.WriteLine("")
+                End If
             Else
                 sw.WriteLine("========================================")
                 sw.WriteLine("         CUSTOMER DETAILS")
                 sw.WriteLine("========================================")
                 sw.WriteLine("")
-                sw.WriteLine("Name: " & guestName)
-                sw.WriteLine("ID: " & guestId)
-                sw.WriteLine("TIN No.:" & guestTin)
-                sw.WriteLine("Address.: " & guestAddress)
-                sw.WriteLine("")
-                sw.WriteLine("___________________")
-                sw.WriteLine(" " & typeOfDiscount & " Signature")
 
-                sw.WriteLine("")
+                If customerList IsNot Nothing AndAlso customerList.Count > 0 Then
+                    For Each guest As CustomerInfo In customerList
+                        sw.WriteLine("Name: " & guest.Name)
+                        sw.WriteLine("ID: " & guest.ID)
+                        sw.WriteLine("TIN No.:" & guest.TIN)
+                        sw.WriteLine("Address.: " & guest.Address)
+                        sw.WriteLine("")
+                        sw.WriteLine("___________________")
+                        sw.WriteLine(" " & typeOfDiscount & " Signature")
+                        sw.WriteLine("")
+                    Next
+                Else
+                    ' Fallback if list is empty
+                    sw.WriteLine("Name: ")
+                    sw.WriteLine("ID: ")
+                    sw.WriteLine("TIN No.:")
+                    sw.WriteLine("Address.: ")
+                    sw.WriteLine("")
+                    sw.WriteLine("___________________")
+                    sw.WriteLine(" " & typeOfDiscount & " Signature")
+                    sw.WriteLine("")
+                End If
             End If
             sw.WriteLine("========================================")
             sw.WriteLine("   THIS SERVES AS YOUR SALES INVOICE")
@@ -216,10 +245,7 @@ Public Class Receipt_OR_Printed
                                   approvedCode As String,
                                   money As String,
                                   changeVal As String,
-                                  guestName As String,
-                                  guestId As String,
-                                  guestTin As String,
-                                  guestAddress As String,
+                                  customerList As List(Of CustomerInfo),
                                   vatable As String,
                                   vat As String,
                                   vatExempt As String,
@@ -318,31 +344,63 @@ Public Class Receipt_OR_Printed
                     sw.WriteLine("         CUSTOMER DETAILS")
                     sw.WriteLine("========================================")
                     sw.WriteLine("")
-                    sw.WriteLine("Name :" & guestName)
-                    sw.WriteLine("")
-                    sw.WriteLine("ID:" & guestId)
-                    sw.WriteLine("")
-                    sw.WriteLine("TIN No. :" & guestTin)
-                    sw.WriteLine("")
-                    sw.WriteLine("Address :" & guestAddress)
-                    sw.WriteLine("")
-                    sw.WriteLine("")
-                    sw.WriteLine("Signature: ____________________________")
-                    sw.WriteLine("")
+
+                    If customerList IsNot Nothing AndAlso customerList.Count > 0 Then
+                        For Each guest As CustomerInfo In customerList
+                            sw.WriteLine("Name :" & guest.Name)
+                            sw.WriteLine("")
+                            sw.WriteLine("ID:" & guest.ID)
+                            sw.WriteLine("")
+                            sw.WriteLine("TIN No. :" & guest.TIN)
+                            sw.WriteLine("")
+                            sw.WriteLine("Address :" & guest.Address)
+                            sw.WriteLine("")
+                            sw.WriteLine("")
+                            sw.WriteLine("Signature: ____________________________")
+                            sw.WriteLine("")
+                        Next
+                    Else
+                        ' Fallback if list is empty
+                        sw.WriteLine("Name :")
+                        sw.WriteLine("")
+                        sw.WriteLine("ID:")
+                        sw.WriteLine("")
+                        sw.WriteLine("TIN No. :")
+                        sw.WriteLine("")
+                        sw.WriteLine("Address :")
+                        sw.WriteLine("")
+                        sw.WriteLine("")
+                        sw.WriteLine("Signature: ____________________________")
+                        sw.WriteLine("")
+                    End If
                 Else
                     sw.WriteLine("========================================")
                     sw.WriteLine("         CUSTOMER DETAILS")
                     sw.WriteLine("========================================")
                     sw.WriteLine("")
-                    sw.WriteLine("Name: " & guestName)
-                    sw.WriteLine("ID: " & guestId)
-                    sw.WriteLine("TIN No.: " & guestTin)
-                    sw.WriteLine("Address.: " & guestAddress)
-                    sw.WriteLine("")
-                    sw.WriteLine("___________________")
-                    sw.WriteLine(" " & typeOfDiscount & " Signature")
 
-                    sw.WriteLine("")
+                    If customerList IsNot Nothing AndAlso customerList.Count > 0 Then
+                        For Each guest As CustomerInfo In customerList
+                            sw.WriteLine("Name: " & guest.Name)
+                            sw.WriteLine("ID: " & guest.ID)
+                            sw.WriteLine("TIN No.:" & guest.TIN)
+                            sw.WriteLine("Address.: " & guest.Address)
+                            sw.WriteLine("")
+                            sw.WriteLine("___________________")
+                            sw.WriteLine(" " & typeOfDiscount & " Signature")
+                            sw.WriteLine("")
+                        Next
+                    Else
+                        ' Fallback if list is empty
+                        sw.WriteLine("Name: ")
+                        sw.WriteLine("ID: ")
+                        sw.WriteLine("TIN No.:")
+                        sw.WriteLine("Address.: ")
+                        sw.WriteLine("")
+                        sw.WriteLine("___________________")
+                        sw.WriteLine(" " & typeOfDiscount & " Signature")
+                        sw.WriteLine("")
+                    End If
                 End If
                 sw.WriteLine("========================================")
                 sw.WriteLine("   THIS SERVES AS YOUR SALES INVOICE")
@@ -383,10 +441,7 @@ Public Class Receipt_OR_Printed
                                   approvedCode As String,
                                   money As String,
                                   changeVal As String,
-                                  guestName As String,
-                                  guestId As String,
-                                  guestTin As String,
-                                  guestAddress As String,
+                                  customerList As List(Of CustomerInfo),
                                   vatable As String,
                                   vat As String,
                                   vatExempt As String,
@@ -477,36 +532,64 @@ Public Class Receipt_OR_Printed
                 file.WriteLine("========================================")
                 file.WriteLine("         CUSTOMER DETAILS")
                 file.WriteLine("========================================")
+                file.WriteLine("")
 
-                file.WriteLine("Name :" & guestName)
-                file.WriteLine("")
-                file.WriteLine("ID:" & guestId)
-                file.WriteLine("")
-                file.WriteLine("TIN No. :" & guestTin)
-                file.WriteLine("")
-                file.WriteLine("Address :" & guestAddress)
-                file.WriteLine("")
-                file.WriteLine("")
-                file.WriteLine("Signature: ____________________________")
-                file.WriteLine("")
+                If customerList IsNot Nothing AndAlso customerList.Count > 0 Then
+                    For Each guest As CustomerInfo In customerList
+                        file.WriteLine("Name :" & guest.Name)
+                        file.WriteLine("")
+                        file.WriteLine("ID:" & guest.ID)
+                        file.WriteLine("")
+                        file.WriteLine("TIN No. :" & guest.TIN)
+                        file.WriteLine("")
+                        file.WriteLine("Address :" & guest.Address)
+                        file.WriteLine("")
+                        file.WriteLine("")
+                        file.WriteLine("Signature: ____________________________")
+                        file.WriteLine("")
+                    Next
+                Else
+                    ' Fallback if list is empty
+                    file.WriteLine("Name :")
+                    file.WriteLine("")
+                    file.WriteLine("ID:")
+                    file.WriteLine("")
+                    file.WriteLine("TIN No. :")
+                    file.WriteLine("")
+                    file.WriteLine("Address :")
+                    file.WriteLine("")
+                    file.WriteLine("")
+                    file.WriteLine("Signature: ____________________________")
+                    file.WriteLine("")
+                End If
             Else
                 file.WriteLine("========================================")
                 file.WriteLine("         CUSTOMER DETAILS")
                 file.WriteLine("========================================")
                 file.WriteLine("")
-                file.WriteLine("Name: " & guestName)
-                file.WriteLine("")
-                file.WriteLine("ID: " & guestId)
-                file.WriteLine("")
-                file.WriteLine("TIN No.: " & guestTin)
-                file.WriteLine("")
-                file.WriteLine("Address.: " & guestAddress)
-                file.WriteLine("")
-                file.WriteLine("")
-                file.WriteLine("___________________")
-                file.WriteLine(" " & typeOfDiscount & " Signature")
 
-                file.WriteLine("")
+                If customerList IsNot Nothing AndAlso customerList.Count > 0 Then
+                    For Each guest As CustomerInfo In customerList
+                        file.WriteLine("Name: " & guest.Name)
+                        file.WriteLine("ID: " & guest.ID)
+                        file.WriteLine("TIN No.:" & guest.TIN)
+                        file.WriteLine("Address.: " & guest.Address)
+                        file.WriteLine("")
+                        file.WriteLine("___________________")
+                        file.WriteLine(" " & typeOfDiscount & " Signature")
+                        file.WriteLine("")
+                    Next
+                Else
+                    ' Fallback if list is empty
+                    file.WriteLine("Name: ")
+                    file.WriteLine("ID: ")
+                    file.WriteLine("TIN No.:")
+                    file.WriteLine("Address.: ")
+                    file.WriteLine("")
+                    file.WriteLine("___________________")
+                    file.WriteLine(" " & typeOfDiscount & " Signature")
+                    file.WriteLine("")
+                End If
             End If
             file.WriteLine("========================================")
             file.WriteLine("   THIS SERVES AS YOUR SALES INVOICE")

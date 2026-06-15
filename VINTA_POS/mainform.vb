@@ -3427,9 +3427,6 @@ Public Class mainform
             End If
         Next
 
-        'Generate OR_No
-        auto()
-        'MsgBox(TextBoxBarcode.Text)
 
         Try
             If (TextBoxQty.Text = "0" Or TextBoxQty.Text = "" Or TextBoxTripFare.Text = "" Or LabelAvailed.Text = "" Or String.IsNullOrWhiteSpace(LabelQtyPrice.Text) Or String.IsNullOrWhiteSpace(LabelTotal.Text)) Then
@@ -3661,9 +3658,9 @@ Public Class mainform
             If TextBoxQty.Text = "" Then
                 MsgBox("Select Rides or Qty")
             Else
-                'Store data to or_items_tbl
 
-                ItemInsertIntoTicketTracsaction()
+
+
 
                 Dim qtyTotal As Decimal = ComputeColumnTotal(ListViewCashier, 1)
                 LabelQtyTotal.Text = qtyTotal.ToString("N2")
@@ -5132,7 +5129,6 @@ Public Class mainform
     ' Inserting data in different table
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
 
-        Dim or_no As String = TextBoxBarcode.Text
 
         Try
             If (TextBoxQty.Text = "" Or ButtonRegularRide.Text = "" Or ButtonPromo.Text = "" Or ComboBoxPaymentMethod.Text = "") Then
@@ -5140,7 +5136,11 @@ Public Class mainform
                 Exit Sub
             End If
 
-            ' 1) Prepare E-Journal file + receiptText FIRST (or you can do after commit)
+            ItemInsertIntoTicketTracsaction()
+            ' GRAB THE NEWLY GENERATED OR NUMBER
+            Dim or_no As String = TextBoxBarcode.Text
+
+            ' Prepare E-Journal file + receiptText FIRST (or you can do after commit)
 
             Dim filepath As String = "C:\E-Journal\" & DateTime.Today.ToString("yyyy-MM-dd") & ".txt"
             Dim receiptText As String = ""
@@ -5152,32 +5152,18 @@ Public Class mainform
                 Dim printTIN As String = ""
                 Dim printAddress As String = ""
 
-                ' 2. Check if the cashier actually entered any customer details
-                If eJournalCustomerData.CustomerList.Count > 0 Then
-
-                    ' They did! Grab the first customer in the list to overwrite the empty strings
-                    Dim currentCustomer As CustomerInfo = eJournalCustomerData.CustomerList(0)
-                    printName = currentCustomer.Name
-                    printID = currentCustomer.ID
-                    printTIN = currentCustomer.TIN
-                    printAddress = currentCustomer.Address
-                End If
-
-                ' 3. Call your print method ONCE using the variables. 
-                ' If no details were entered, it safely passes the empty strings!
+                ' 3. Call your print method ONCE passing the entire CustomerList. 
                 If Not File.Exists(filepath) Then
                     Receipt_OR_Printed.PrintReceipt(filepath, LabelPOSno.Text, LabelSerial.Text, LabelCashierName.Text,
             TextBoxBarcode.Text, "", "", "", "", "", "", LabelTotal.Text, ComboBoxPaymentMethod.Text,
             lblApprovedCode.Text, Convert.ToDecimal(Val(TextBoxMoney.Text)).ToString("0.00"),
-            TextBoxChange.Text, printName, printID, printTIN,
-            printAddress, LabelVATable.Text, LabelVAT.Text, LabelVATExempt.Text,
+            TextBoxChange.Text, eJournalCustomerData.CustomerList, LabelVATable.Text, LabelVAT.Text, LabelVATExempt.Text,
             LabelZeroRated.Text, LabelDiscount.Text, LabelType.Text, LabelLessVat.Text)
                 Else
                     Receipt_OR_Printed.AppendEJournalReceipt(filepath, LabelPOSno.Text, LabelSerial.Text, LabelCashierName.Text,
             TextBoxBarcode.Text, "", "", "", "", "", "", LabelTotal.Text, ComboBoxPaymentMethod.Text,
             lblApprovedCode.Text, Convert.ToDecimal(Val(TextBoxMoney.Text)).ToString("0.00"),
-            TextBoxChange.Text, printName, printID, printTIN,
-            printAddress, LabelVATable.Text, LabelVAT.Text, LabelVATExempt.Text,
+            TextBoxChange.Text, eJournalCustomerData.CustomerList, LabelVATable.Text, LabelVAT.Text, LabelVATExempt.Text,
             LabelZeroRated.Text, LabelDiscount.Text, LabelType.Text, LabelLessVat.Text)
                 End If
 
@@ -5327,6 +5313,38 @@ Public Class mainform
 
                         End Using
 
+                        ' -------------------------------------------------------------
+                        ' --- SAVE CUSTOMER TO DATABASE DURING CHECKOUT ---
+                        ' -------------------------------------------------------------
+                        If eJournalCustomerData.CustomerList IsNot Nothing AndAlso eJournalCustomerData.CustomerList.Count > 0 Then
+                            For Each guest As CustomerInfo In eJournalCustomerData.CustomerList
+                                Using cmdCust As New MySqlCommand("insert_customer_procedure", conn, tx)
+                                    cmdCust.CommandType = CommandType.StoredProcedure
+
+                                    ' Force it to use the exact OR Number from the transaction
+                                    cmdCust.Parameters.AddWithValue("@p_or_no", TextBoxBarcode.Text)
+                                    cmdCust.Parameters.AddWithValue("@p_name", guest.Name)
+                                    cmdCust.Parameters.AddWithValue("@p_id_no", guest.ID)
+
+                                    If String.IsNullOrWhiteSpace(guest.TIN) Then
+                                        cmdCust.Parameters.AddWithValue("@p_tin_no", DBNull.Value)
+                                    Else
+                                        cmdCust.Parameters.AddWithValue("@p_tin_no", guest.TIN)
+                                    End If
+
+                                    If String.IsNullOrWhiteSpace(guest.Address) Then
+                                        cmdCust.Parameters.AddWithValue("@p_address", DBNull.Value)
+                                    Else
+                                        cmdCust.Parameters.AddWithValue("@p_address", guest.Address)
+                                    End If
+
+                                    cmdCust.Parameters.AddWithValue("@p_transType", guest.TransType)
+                                    cmdCust.ExecuteNonQuery()
+                                End Using
+                            Next
+                        End If
+                        ' -------------------------------------------------------------
+
                         ' ✅ all ok
                         tx.Commit()
 
@@ -5342,11 +5360,14 @@ Public Class mainform
             If ComboBoxPaymentMethod.Text = "CASH" Then
                 PrintMultipleTables(or_no, eJournalCustomerData.CustomerList)
                 OpenTerminalDrawer()
-                'PrintMultipleTables(or_no, _discountForm.DiscountedGuests)
             Else
                 PrintMultipleTables(or_no, eJournalCustomerData.CustomerList)
                 PrintMultipleTables(or_no, eJournalCustomerData.CustomerList)
             End If
+
+            ' CLEAR THE LIST AFTER THE CHECKOUT IS COMPLETELY FINISHED
+            eJournalCustomerData.CustomerList.Clear()
+
 
             'For Ticket Sales
             CopyListviewCashierDataToGenerateWristband()
