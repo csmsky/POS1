@@ -36,6 +36,14 @@ Public Class VIPCheckBalance
                             LabelCustomerNo.Text = customerNo
                             LabelBalance.Text = "₱" & currentBalance.ToString("N2")
 
+                            secondscreen.ListViewCustomerView.Items.Clear()
+                            Dim item As New ListViewItem("-") ' Qty
+                            item.SubItems.Add("Current VIP Balance") ' Description
+                            item.SubItems.Add("") ' Price
+                            item.SubItems.Add(currentBalance.ToString("0.00")) ' Total
+                            item.SubItems.Add("") ' Discount
+                            item.SubItems.Add(currentBalance.ToString("0.00")) ' Amount
+                            secondscreen.ListViewCustomerView.Items.Add(item)
                         Else
                             ' Customer Not Found!
                             MsgBox("VIP Card not found in the system.", MsgBoxStyle.Information, "Not Found")
@@ -54,9 +62,17 @@ Public Class VIPCheckBalance
         LabelName.Text = "---"
         LabelCustomerNo.Text = "---"
         LabelBalance.Text = "₱0.00"
+
+        secondscreen.LabelTotalCustomerView.Text = "0.00"
+        secondscreen.LabelCashTendered.Text = "0.00"
+        secondscreen.LabelChangeCustomerChange.Text = "0.00"
+        secondscreen.ListViewCustomerView.Items.Clear()
     End Sub
 
     Private Sub ButtonClose_Click(sender As Object, e As EventArgs) Handles ButtonClose.Click
+        ' Hide the balance from the 2nd screen when leaving
+        secondscreen.ListViewCustomerView.Items.Clear()
+
         Me.Close()
     End Sub
 End Class

@@ -199,14 +199,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="METTA_CITY.exe" size="3646976">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="METTA_CITY.exe" size="3672576">
       <assemblyIdentity name="METTA_CITY" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zl6uoa2WoKVJuZIU1DbSWxRdm5DIk9Vfqi8ZPyh1ju4=</dsig:DigestValue>
+        <dsig:DigestValue>iLS9opbm3qCtOVJqcRVbmZZOWZCs6Ytk+uWJynSy+HY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

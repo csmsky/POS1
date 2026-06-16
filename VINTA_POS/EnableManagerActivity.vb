@@ -1,4 +1,4 @@
-﻿Imports WindowsApplication1.ConfigClass
+Imports WindowsApplication1.ConfigClass
 Imports System.IO
 Imports System.IO.Ports
 ' ===== Fingerprint =====
@@ -309,5 +309,9 @@ Public Class EnableManagerActivity
 
     Private Sub ButtonCheckBalance_Click(sender As Object, e As EventArgs) Handles ButtonCheckBalance.Click
         VIPCheckBalance.ShowDialog()
+    End Sub
+
+    Private Sub ButtonCardReload_Click(sender As Object, e As EventArgs) Handles ButtonCardReload.Click
+        VIPReload.ShowDialog()
     End Sub
 End Class

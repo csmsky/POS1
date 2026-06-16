@@ -40,8 +40,8 @@ Partial Class EnableManagerActivity
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.ButtonCardReload = New System.Windows.Forms.Button()
         Me.ButtonCheckBalance = New System.Windows.Forms.Button()
+        Me.ButtonCardReload = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -225,16 +225,6 @@ Partial Class EnableManagerActivity
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "VIP Card"
         '
-        'ButtonCardReload
-        '
-        Me.ButtonCardReload.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonCardReload.Location = New System.Drawing.Point(38, 47)
-        Me.ButtonCardReload.Name = "ButtonCardReload"
-        Me.ButtonCardReload.Size = New System.Drawing.Size(135, 90)
-        Me.ButtonCardReload.TabIndex = 0
-        Me.ButtonCardReload.Text = "Card Reload"
-        Me.ButtonCardReload.UseVisualStyleBackColor = True
-        '
         'ButtonCheckBalance
         '
         Me.ButtonCheckBalance.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -244,6 +234,16 @@ Partial Class EnableManagerActivity
         Me.ButtonCheckBalance.TabIndex = 10
         Me.ButtonCheckBalance.Text = "Check Balance"
         Me.ButtonCheckBalance.UseVisualStyleBackColor = True
+        '
+        'ButtonCardReload
+        '
+        Me.ButtonCardReload.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCardReload.Location = New System.Drawing.Point(38, 47)
+        Me.ButtonCardReload.Name = "ButtonCardReload"
+        Me.ButtonCardReload.Size = New System.Drawing.Size(135, 90)
+        Me.ButtonCardReload.TabIndex = 0
+        Me.ButtonCardReload.Text = "Card Reload"
+        Me.ButtonCardReload.UseVisualStyleBackColor = True
         '
         'EnableManagerActivity
         '

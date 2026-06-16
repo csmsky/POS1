@@ -608,4 +608,85 @@ Public Class Receipt_OR_Printed
             file.WriteLine("")
         End Using
     End Sub
+
+    Public Shared Sub AppendReloadEJournalReceipt(filepath As String,
+                                  pos As String,
+                                  cashier As String,
+                                  orNo As String,
+                                  cardNumber As String,
+                                  total As String,
+                                  paymentMethod As String,
+                                  approvedCode As String,
+                                  money As String,
+                                  changeVal As String)
+        Try
+            Dim dir As String = Path.GetDirectoryName(filepath)
+            If Not Directory.Exists(dir) Then
+                Directory.CreateDirectory(dir)
+            End If
+
+            Using sw As StreamWriter = File.AppendText(filepath)
+                sw.WriteLine("              " & CompName)
+                sw.WriteLine("           " & CompNameB)
+                sw.WriteLine("          " & AddressA)
+                sw.WriteLine("     " & AddressB)
+                sw.WriteLine("              " & AddressC)
+                sw.WriteLine("          " & AddressD)
+                sw.WriteLine("         " & VATTIN)
+                sw.WriteLine("         POS" & pos & " " & POS_ID_Number)
+                sw.WriteLine("         " & MIN_No)
+                sw.WriteLine("========================================")
+                sw.WriteLine("         VIP CARD RELOAD ")
+                sw.WriteLine("========================================")
+                sw.WriteLine("Cashier: " & cashier)
+                sw.WriteLine("OR #: " & orNo)
+                sw.WriteLine("Date/Time:" & DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
+                sw.WriteLine("========================================")
+
+                sw.WriteLine("VIP Card No: " & cardNumber)
+                sw.WriteLine("Reload Amount:           ₱ " & total)
+
+                sw.WriteLine("")
+                sw.WriteLine("========================================")
+                sw.WriteLine("AMOUNT DUE:              ₱ " & total)
+
+                If (paymentMethod.ToUpper() = "CASH") Then
+                    sw.WriteLine("PAYMENT:                 ₱ " & money)
+                    sw.WriteLine("  " & paymentMethod)
+                    sw.WriteLine("CHANGE:                  ₱ " & changeVal)
+                Else
+                    sw.WriteLine("PAYMENT:                 ₱ " & total)
+                    sw.WriteLine("  " & paymentMethod)
+                    sw.WriteLine("APPROVED CODE: " & approvedCode)
+                End If
+
+                sw.WriteLine("")
+                sw.WriteLine("========================================")
+                sw.WriteLine("             VAT INFORMATION")
+                sw.WriteLine("========================================")
+                sw.WriteLine("VATable:                 ₱ 0.00")
+                sw.WriteLine("VAT(12%)                 ₱ 0.00")
+                sw.WriteLine("VAT-Exempt:              ₱ 0.00")
+                sw.WriteLine("Zero-Rated:              ₱ 0.00")
+                sw.WriteLine("Less Vat(12%):           ₱ 0.00")
+                sw.WriteLine("")
+                sw.WriteLine("========================================")
+                sw.WriteLine("   THIS SERVES AS YOUR SALES INVOICE")
+                sw.WriteLine("========================================")
+                sw.WriteLine("")
+                sw.WriteLine("      " & V_Date_Issued)
+                sw.WriteLine("        " & V_PTU_No)
+                sw.WriteLine("")
+                sw.WriteLine("    Thank you! Please come again!")
+                sw.WriteLine("")
+                sw.WriteLine("")
+                sw.WriteLine("     --- END OF TRANSACTION ---")
+                sw.WriteLine("")
+
+                sw.Close()
+            End Using
+        Catch ex As Exception
+        End Try
+    End Sub
+
 End Class
