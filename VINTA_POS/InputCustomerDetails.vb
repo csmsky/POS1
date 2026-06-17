@@ -247,7 +247,7 @@ Public Class InputCustomerDetails
             eJournalCustomerData.CustomerList.Add(cust)
         Next
 
-        MessageBox.Show("Proceed to Checkout to Confirm Transaction.", "Success")
+        MessageBox.Show("Customer saved to memory! It will officially upload to the database during checkout.", "Success")
 
         ' Close the form and return to POS
         mainform.CurrentCustomerName = _pendingCustomers(0).Name

@@ -247,6 +247,12 @@
     <Compile Include="Form2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GiftCardRegister.Designer.vb">
+      <DependentUpon>GiftCardRegister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GiftCardRegister.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InputCustomerDetails.Designer.vb">
       <DependentUpon>InputCustomerDetails.vb</DependentUpon>
     </Compile>
@@ -385,6 +391,12 @@
     <Compile Include="PaymentMethod.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PrepaidForm.Designer.vb">
+      <DependentUpon>PrepaidForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PrepaidForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PrintingOR.vb" />
     <Compile Include="promo.Designer.vb">
       <DependentUpon>promo.vb</DependentUpon>
@@ -512,6 +524,9 @@
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GiftCardRegister.resx">
+      <DependentUpon>GiftCardRegister.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputCustomerDetails.resx">
       <DependentUpon>InputCustomerDetails.vb</DependentUpon>
     </EmbeddedResource>
@@ -553,6 +568,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PaymentMethod.resx">
       <DependentUpon>PaymentMethod.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrepaidForm.resx">
+      <DependentUpon>PrepaidForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="promo.resx">
       <DependentUpon>promo.vb</DependentUpon>

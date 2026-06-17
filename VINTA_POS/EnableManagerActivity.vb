@@ -167,8 +167,11 @@ Public Class EnableManagerActivity
                     Button4.Enabled = True
                     Button5.Enabled = True
                     Button6.Enabled = True
-                    Button7.Enabled = True
-                    SetFpStatus("Manager authorized ✅ You may now reprint.")
+                Button7.Enabled = True
+                ButtonGiftCardRegister.Enabled = True
+                ButtonGiftCardUse.Enabled = True
+
+                SetFpStatus("Manager authorized ✅ You may now reprint.")
                 Else
                     SetFpStatus("Matched user is not Manager.")
                 End If
@@ -305,6 +308,8 @@ Public Class EnableManagerActivity
         Button5.Enabled = False
         Button6.Enabled = False
         Button7.Enabled = False
+        ButtonGiftCardRegister.Enabled = False 'added
+        ButtonGiftCardUse.Enabled = False       'added
     End Sub
 
     Private Sub ButtonCheckBalance_Click(sender As Object, e As EventArgs) Handles ButtonCheckBalance.Click
@@ -313,5 +318,14 @@ Public Class EnableManagerActivity
 
     Private Sub ButtonCardReload_Click(sender As Object, e As EventArgs) Handles ButtonCardReload.Click
         VIPReload.ShowDialog()
+    End Sub
+
+    Private Sub GroupBox6_Enter(sender As Object, e As EventArgs) Handles GroupBox6.Enter
+
+    End Sub
+
+    Private Sub ButtonGiftCardRegister_Click(sender As Object, e As EventArgs) Handles ButtonGiftCardRegister.Click
+        ' Opens the new form 
+        GiftCardRegister.ShowDialog()
     End Sub
 End Class

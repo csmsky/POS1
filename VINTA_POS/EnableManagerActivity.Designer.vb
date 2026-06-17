@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class EnableManagerActivity
     Inherits System.Windows.Forms.Form
 
@@ -42,11 +42,15 @@ Partial Class EnableManagerActivity
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.ButtonCheckBalance = New System.Windows.Forms.Button()
         Me.ButtonCardReload = New System.Windows.Forms.Button()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.ButtonGiftCardRegister = New System.Windows.Forms.Button()
+        Me.ButtonGiftCardUse = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
@@ -245,11 +249,44 @@ Partial Class EnableManagerActivity
         Me.ButtonCardReload.Text = "Card Reload"
         Me.ButtonCardReload.UseVisualStyleBackColor = True
         '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.ButtonGiftCardUse)
+        Me.GroupBox6.Controls.Add(Me.ButtonGiftCardRegister)
+        Me.GroupBox6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox6.Location = New System.Drawing.Point(26, 462)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(346, 158)
+        Me.GroupBox6.TabIndex = 10
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Gift Card"
+        '
+        'ButtonGiftCardRegister
+        '
+        Me.ButtonGiftCardRegister.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonGiftCardRegister.Location = New System.Drawing.Point(37, 45)
+        Me.ButtonGiftCardRegister.Name = "ButtonGiftCardRegister"
+        Me.ButtonGiftCardRegister.Size = New System.Drawing.Size(135, 89)
+        Me.ButtonGiftCardRegister.TabIndex = 0
+        Me.ButtonGiftCardRegister.Text = "Register"
+        Me.ButtonGiftCardRegister.UseVisualStyleBackColor = True
+        '
+        'ButtonGiftCardUse
+        '
+        Me.ButtonGiftCardUse.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonGiftCardUse.Location = New System.Drawing.Point(178, 45)
+        Me.ButtonGiftCardUse.Name = "ButtonGiftCardUse"
+        Me.ButtonGiftCardUse.Size = New System.Drawing.Size(135, 89)
+        Me.ButtonGiftCardUse.TabIndex = 1
+        Me.ButtonGiftCardUse.Text = "Use Card"
+        Me.ButtonGiftCardUse.UseVisualStyleBackColor = True
+        '
         'EnableManagerActivity
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(747, 632)
+        Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -268,6 +305,7 @@ Partial Class EnableManagerActivity
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox6.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -292,4 +330,7 @@ Partial Class EnableManagerActivity
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents ButtonCheckBalance As Button
     Friend WithEvents ButtonCardReload As Button
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents ButtonGiftCardUse As Button
+    Friend WithEvents ButtonGiftCardRegister As Button
 End Class
